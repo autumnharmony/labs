@@ -46,5 +46,29 @@ namespace GBusManager {
                 this["NodeSize"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AdditionalEdgeEllipsis {
+            get {
+                return ((bool)(this["AdditionalEdgeEllipsis"]));
+            }
+            set {
+                this["AdditionalEdgeEllipsis"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("15")]
+        public int BetweenEdgesK {
+            get {
+                return ((int)(this["BetweenEdgesK"]));
+            }
+            set {
+                this["BetweenEdgesK"] = value;
+            }
+        }
     }
 }

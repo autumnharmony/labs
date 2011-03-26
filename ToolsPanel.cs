@@ -13,14 +13,14 @@ namespace GBusManager
     public partial class ToolsPanel : UserControl
     {
 
-        ArrayList routes;// = Status.Routes;
+        public ArrayList routes;// = Status.Routes;
         ArrayList points;
         //BindingSource bind = new BindingSource();
-        GraphCreator graphcreator;
+        public GraphCreator graphcreator;
 
-        public ToolsPanel(GraphCreator g)
+        public ToolsPanel()
         {
-            graphcreator = g;
+            //graphcreator = g;
             routes = Status.Routes;
             points = Status.Points;
 
@@ -46,6 +46,7 @@ namespace GBusManager
             //gc.SetMode(Misc.Mode.Point);
             Status.mode = Misc.Mode.Point;
             
+            
         }
 
 
@@ -66,14 +67,10 @@ namespace GBusManager
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //routes.
-            //int n = comboBox1.SelectedIndex;
-            //MessageBox.Show(n.ToString());
-            //if (n!=-1)
-            //Status.graphcreator.DrawRoute((Route)routes[n]);
+      
         }
 
-        public void RefreshRoutes()
+        public void RefreshRoutesAndPoints()
         {
             this.BindingContext[routes].SuspendBinding();
             this.BindingContext[routes].ResumeBinding();
@@ -88,7 +85,7 @@ namespace GBusManager
             destPoint.BindingContext[points].ResumeBinding();
 
             //routesListBox.SelectedIndices.
-            routesListBox.SelectedIndex = routesListBox.Items.Count-1;
+            //routesListBox.SelectedIndex = routesListBox.Items.Count-1;
        }
 
         private void ToolsPanel_Load(object sender, EventArgs e)
@@ -125,19 +122,66 @@ namespace GBusManager
 
         private void resultBtn_Click(object sender, EventArgs e)
         {
-            Array a = routes.ToArray(typeof(Route));
-            
-            Graph g = new Graph(points.Count,a as Route[]);
-            resultLbl.Text = g.ShortestRoute(srcPoint.SelectedIndex, destPoint.SelectedIndex).ToString();
+            try
+            {
+                Array a = routes.ToArray(typeof(Route));
+
+                Graph g = new Graph(points, a as Route[]);
+                string path;
+                resultLbl.Text = g.ShortestRoute(srcPoint.SelectedIndex, destPoint.SelectedIndex, out path).ToString();
+                textBox1.Text = path;
+
+                Node c1 = null;
+                Node c2 = null;
+                //graphcreator.CreateGraphics().Clear(Color.White);
+                graphcreator.Redraw(true);
+                graphcreator.DrawNodes(true);
+                while (g.nodestomove.Count >1)
+                {
+                    /*
+                    if (c != null)
+                    {
+                        graphcreator.DrawDirectEdge(c.point, ((Node)g.nodestomove.Peek()).point, ((Route)routes[((Node)g.nodestomove.Peek()).r]).color);
+                    }
+                    c = (Node)g.nodestomove.Dequeue();
+                     */
+
+                    c1 = (Node)g.nodestomove.Dequeue();
+                    c2 = (Node)g.nodestomove.Peek();
+
+                    graphcreator.DrawDirectEdge(c1.point, c2.point, ((Route)routes[c1.r]).color);
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message + "+" + ex.StackTrace); }
         }
 
         private void endRoute_Click(object sender, EventArgs e)
         {
-            routes.Add(new Route(graphcreator.crs));
-            graphcreator.ResetRouteInfo();
-            RefreshRoutes();
+            try
+            {
+                routes.Add(new Route(graphcreator.crs));
+                if (Status.DEBUG) MessageBox.Show(graphcreator.crs);
+                graphcreator.ResetRouteInfo();
+                RefreshRoutesAndPoints();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
+
+        public System.Windows.Forms.ListBox RoutesListBox{
+            get
+            {
+                return routesListBox;
+            }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
       
     }
 }

@@ -13,8 +13,35 @@ F:\My Dropbox\BusManager\GBusManager\bin\Debug\GBusManager.exe
 F:\My Dropbox\BusManager\GBusManager\bin\Debug\GBusManager.pdb
 F:\My Dropbox\BusManager\GBusManager\obj\x86\Debug\GBusManager.pdb
 F:\My Dropbox\BusManager\GBusManager\obj\x86\Debug\GBusManager.GraphCreator.resources
-F:\My Dropbox\BusManager\GBusManager\obj\x86\Debug\GBusManager.GraphViewer.resources
 F:\My Dropbox\BusManager\GBusManager\obj\x86\Debug\GBusManager.ToolsPanel.resources
 F:\My Dropbox\BusManager\GBusManager\bin\Debug\GBusManager.exe.config
 F:\My Dropbox\BusManager\GBusManager\obj\x86\Debug\GBusManager.Properties.Resources.resources
 F:\My Dropbox\BusManager\GBusManager\obj\x86\Debug\GBusManager.Resource1.resources
+C:\Users\anton\Dropbox\BusManager\GBusManager\bin\Debug\GBusManager.exe.config
+C:\Users\anton\Dropbox\BusManager\GBusManager\bin\Debug\GBusManager.exe
+C:\Users\anton\Dropbox\BusManager\GBusManager\bin\Debug\GBusManager.pdb
+C:\Users\anton\Dropbox\BusManager\GBusManager\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\anton\Dropbox\BusManager\GBusManager\obj\x86\Debug\GBusManager.GraphCreator.resources
+C:\Users\anton\Dropbox\BusManager\GBusManager\obj\x86\Debug\GBusManager.GraphViewer.resources
+C:\Users\anton\Dropbox\BusManager\GBusManager\obj\x86\Debug\GBusManager.MainForm.resources
+C:\Users\anton\Dropbox\BusManager\GBusManager\obj\x86\Debug\GBusManager.Properties.Resources.resources
+C:\Users\anton\Dropbox\BusManager\GBusManager\obj\x86\Debug\GBusManager.Resource1.resources
+C:\Users\anton\Dropbox\BusManager\GBusManager\obj\x86\Debug\GBusManager.ToolsPanel.resources
+C:\Users\anton\Dropbox\BusManager\GBusManager\obj\x86\Debug\GBusManager.csproj.GenerateResource.Cache
+C:\Users\anton\Dropbox\BusManager\GBusManager\obj\x86\Debug\GBusManager.exe
+C:\Users\anton\Dropbox\BusManager\GBusManager\obj\x86\Debug\GBusManager.pdb
+C:\Documents and Settings\anton\Dropbox\BusManager\GBusManager\bin\Debug\GBusManager.exe.config
+C:\Documents and Settings\anton\Dropbox\BusManager\GBusManager\bin\Debug\GBusManager.exe
+C:\Documents and Settings\anton\Dropbox\BusManager\GBusManager\bin\Debug\GBusManager.pdb
+C:\Documents and Settings\anton\Dropbox\BusManager\GBusManager\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\anton\Dropbox\BusManager\GBusManager\obj\x86\Debug\GBusManager.GraphCreator.resources
+C:\Documents and Settings\anton\Dropbox\BusManager\GBusManager\obj\x86\Debug\GBusManager.GraphViewer.resources
+C:\Documents and Settings\anton\Dropbox\BusManager\GBusManager\obj\x86\Debug\GBusManager.MainForm.resources
+C:\Documents and Settings\anton\Dropbox\BusManager\GBusManager\obj\x86\Debug\GBusManager.Properties.Resources.resources
+C:\Documents and Settings\anton\Dropbox\BusManager\GBusManager\obj\x86\Debug\GBusManager.Resource1.resources
+C:\Documents and Settings\anton\Dropbox\BusManager\GBusManager\obj\x86\Debug\GBusManager.ToolsPanel.resources
+C:\Documents and Settings\anton\Dropbox\BusManager\GBusManager\obj\x86\Debug\GBusManager.csproj.GenerateResource.Cache
+C:\Documents and Settings\anton\Dropbox\BusManager\GBusManager\obj\x86\Debug\GBusManager.exe
+C:\Documents and Settings\anton\Dropbox\BusManager\GBusManager\obj\x86\Debug\GBusManager.pdb
+F:\My Dropbox\BusManager\GBusManager\obj\x86\Debug\GBusManager.GraphViewer.resources
+F:\My Dropbox\BusManager\GBusManager\obj\x86\Debug\GBusManager.SettingsForm.resources

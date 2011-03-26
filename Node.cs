@@ -10,7 +10,8 @@ namespace GBusManager
 	public struct AdjNode {
 		public Node node;
 		public int route;
-		
+
+        
 		
 		
 		Graph graph;
@@ -44,16 +45,20 @@ namespace GBusManager
 		
 		// длина минимального пути
 		public int len = int.MaxValue / 2;
-		
-		
+
+        public int prevn;
 		
 		Graph graph;
-		
+
+        public Point point;
+
 		#endregion
 		
 		int X;
 		int Y;
-		
+
+        public Node prev;
+
 		Label label;
 		
 		public ArrayList neighbors = new ArrayList();
@@ -69,10 +74,12 @@ namespace GBusManager
 		public bool v;
 		
 		
-		public Node(Graph g, int bn)
+		public Node(Graph g, int bn,Point p)
 		{
 			graph = g;
 			n = bn;
+            len = int.MaxValue;
+            point = p;
 		}
 		
 		public Node(int bn, Label l, int x, int y)
@@ -82,10 +89,11 @@ namespace GBusManager
 			X = x;
 			Y = y;
 			label = l;
+            len = int.MaxValue;
 		}
 		
 		public Node(){
-			
+            len = int.MaxValue;
 		}
 		
 		// добавление смежного
@@ -94,17 +102,26 @@ namespace GBusManager
 		}
 		
 		private string AdjNodesToString(){
+            //throw new NotImplementedException();
 			string s = "";
 			foreach (AdjNode an in neighbors){
-				s+=""+an.node+"["+an.route+"]\n";
+				//s+=""+an.node+"["+an.route+"]\n";
 			}
 			return s;
 		}
+
+        public Node Neighbor(int r, int d)
+        {
+            // r - route
+            // d - direction
+
+            return graph.Node(graph.routes[r].Near(n, d));
+        }
 		
 		public override string ToString()
 		{
 			return n+"";
-			return n.ToString()+ "["+AdjNodesToString()+"]";
+			//return n.ToString()+ "["+AdjNodesToString()+"]";
 		}
 	}
 }

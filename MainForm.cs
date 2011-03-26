@@ -5,6 +5,7 @@ using System.Collections;
 using System.Drawing;
 using System.Windows.Forms;
 
+
 namespace GBusManager
 {
 	/// <summary>
@@ -55,10 +56,11 @@ namespace GBusManager
             Status.Points = points;
 
 			InitializeComponent();
+            this.Resize += new EventHandler(MainForm_Resize);
 			//g = panel1.CreateGraphics();
 			ArrayList pal = new ArrayList();
             points.Capacity = 30;
-            Status.tp = toolsPanel1;
+            Status.tp = toolsPanel2;
             Status.graphcreator = graphCreator1;
             Status.crs = crs;
             //label1.DataBindings.Add(new Binding("Text",graphCreator1, "crs"));
@@ -66,11 +68,25 @@ namespace GBusManager
 			// TODO: Add constructor code after the InitializeComponent() call.
 			//
 		}
+
+        void MainForm_Resize(object sender, EventArgs e)
+        {
+            Invalidate();
+        }
 		
 		void MainFormLoad(object sender, EventArgs e)
 		{
-			
+            toolsPanel2.graphcreator = graphCreator1;
+            Settings1 set = new Settings1();
+            //set.AdditionalEdgeEllipsis 
+            graphCreator1.DrawPoint(new Point(100, 100, 1));
+            graphCreator1.MyEvent += new MyEventHandler(graphCreator1_MyEvent);
 		}
+
+        void graphCreator1_MyEvent(object sender, MyEventArgs e)
+        {
+            label1.Text = String.Format("{0},{1}", e.X, e.Y);
+        }
 		
 		void Button1Click(object sender, EventArgs e)
 		{
@@ -110,5 +126,77 @@ namespace GBusManager
         {
 
         }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            Status.ElEd = ((CheckBox)sender).Checked;
+        }
+
+        private void MainForm_Activated(object sender, EventArgs e)
+        {
+            //graphCreator1.Redraw(true);
+            this.Refresh();
+        }
+
+        private void graphCreator1_Scroll(object sender, ScrollEventArgs e)
+        {
+            //toolsPanel2.RoutesListBox.SelectedIndex = toolsPanel2.RoutesListBox.SelectedIndex + e.
+            MessageBox.Show((e.NewValue - e.OldValue).ToString());
+        }
+
+        void graphCreator1_MouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            try
+            {
+                for (int i = 0; i < toolsPanel2.RoutesListBox.Items.Count; i++)
+                {
+                    
+                    if (e.Delta < 0)
+                        toolsPanel2.RoutesListBox.SelectedItems[i] = toolsPanel2.RoutesListBox.Items[toolsPanel2.RoutesListBox.SelectedItems.IndexOf(toolsPanel2.RoutesListBox.SelectedItems[i]) - 1];
+                    else
+                        toolsPanel2.RoutesListBox.SelectedItems[i] = toolsPanel2.RoutesListBox.Items[toolsPanel2.RoutesListBox.SelectedItems.IndexOf(toolsPanel2.RoutesListBox.SelectedItems[i]) + 1];
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void graphCreator1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void graphCreator1_Paint(object sender, PaintEventArgs e)
+        {
+            //sender
+        }
+
+        private void настройкиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SettingsForm sf = new SettingsForm();
+            sf.ShowDialog();
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveLoad.Save();
+        }
+
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveLoad.Load();
+            graphCreator1.Redraw(true);
+            toolsPanel2.RefreshRoutesAndPoints();
+        }
+
+        private void toolsPanel2_Load(object sender, EventArgs e)
+        {
+
+        }
+
+           
+        
 	}
 }

@@ -1,12 +1,11 @@
-﻿
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Collections;
 
 namespace GBusManager
 {
 	/// <summary>
-	/// Description of Graph.
+	/// Граф, с заданными узлами, маршрутами, нужен только для вычисления кратчайшего пути
 	/// </summary>
 	public class Graph
 	{
@@ -17,62 +16,125 @@ namespace GBusManager
 		public Route[] routes;
 		Node current;
 		int route;
+        
+        // для восстановления пути 
+        public Queue nodestomove = new Queue();
 		
 		
-		
+
+		/// <summary>
+		/// Возвращает узел по номеру
+		/// </summary>
+		/// <param name="i"></param>
+		/// <returns></returns>
 		public Node Node(int i){
-			//Console.WriteLine(i);
 			if (i>=0 && i<nodes.Length) return nodes[i];
 			return new Node();
-			//throw new Exception("Не существует такого узла");
 		}
 			
 		
-		public Graph(int n, Route[] r)
+		public Graph(ArrayList points, Route[] r)
 		{
-			nodes = new Node[n];
-			for (int i = 0; i<n; i++)
-				nodes[i] = new Node(this, i);
-			
-			for (int i = 0; i < r.Length; i++){
-				
-				for (int j = 0; j< r[i].Length-1; j++){
-					nodes[r[i].nodes[j]].AddAdj(r[i].nodes[j+1], i);
-					nodes[r[i].nodes[j+1]].AddAdj(r[i].nodes[j], i);
-				}
-					
-			}
-		}
+            try
+            {
+                int n = points.Count;
+                nodes = new Node[n];
+                for (int i = 0; i < n; i++)
+                    nodes[i] = new Node(this, i,(Point)points[i]);
+
+                for (int i = 0; i < r.Length; i++)
+                {
+
+                    for (int j = 0; j < r[i].Length - 1; j++)
+                    {
+                        nodes[r[i].nodes[j]].AddAdj(r[i].nodes[j + 1], i);
+                        nodes[r[i].nodes[j + 1]].AddAdj(r[i].nodes[j], i);
+                    }
+
+                }
+
+                routes = r;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        #region OLD
+        /*
+        // должна была быть весовая матрица в виде функции
 		public int W(int i, int j) {
+            
 			throw new NotImplementedException();
 			//if (Node(i).r =
 		}
-		
-					
-		public int ShortestRoute(int s,int f){
 
-			//throw new NotImplementedException();
+        
+        public int[] G(int i){
+            AdjNode[] adjnodes = (AdjNode[])nodes[i].neighbors.ToArray(typeof(AdjNode));
+            foreach (AdjNode an in adjnodes)
+            {
+            }
 
-			Queue q = new Queue();
-			
-			Node cn;
-			q.Enqueue(this.Node(s));
-			this.Node(s).len = 0;
-			
-			while (q.Count>0) {
-				Console.WriteLine(q.Peek());
-				cn = (Node)q.Dequeue();
-				foreach (AdjNode an in cn.neighbors){
-					if (!an.node.v) q.Enqueue(an.node);
-				}
-				LookAroundNode(cn);
-				cn.v = true;
-				//q.Dequeue(cn);
-			}
 
-            return Node(f).len;
-			
-						
+        }*/
+        #endregion
+
+        public int ShortestRoute(int s,int f, out string p){
+            try
+            {
+                Queue q = new Queue();
+
+                Node cn;
+                q.Enqueue(this.Node(s));
+                this.Node(s).len = 0;
+
+                while (q.Count > 0)
+                {
+                    //Console.WriteLine(q.Peek());
+                    cn = (Node)q.Dequeue();
+                    foreach (AdjNode an in cn.neighbors)
+                    {
+                        if (!an.node.v) q.Enqueue(an.node);
+                    }
+                    LookAroundNode(cn);
+                    cn.v = true;
+                    //q.Dequeue(cn);
+                }
+
+                // восстанавливаем путь по меткам
+
+                string path = "";
+                Node start = Node(s);
+
+                Node current = Node(f);
+
+                while (current != start)
+                {
+                    path = "по (" + current.r + ")" + " в " + current.n + path + "\n";
+
+                    nodestomove.Enqueue(current);
+
+                    if (((" "+routes[current.r].rs+" ").IndexOf(" " + current.n.ToString() + " ")) > (((" "+routes[current.r].rs+" ").IndexOf(" " +Node(current.prevn).n.ToString() + " "))))
+                    {
+
+                        current = current.Neighbor(current.r, -1);
+                        
+                    }
+                    else current = current.Neighbor(current.r, 1);
+
+                    
+
+                }
+                nodestomove.Enqueue(start);
+                
+                p = path;
+
+                return Node(f).len;
+
+            }
+            catch (Exception e) { Console.WriteLine(e.Message); p = "omg!"; return -99; }
 			
 			#region old 
 			/*
@@ -120,24 +182,41 @@ namespace GBusManager
 			
 		}
 		
+        /// <summary>
+        /// Обработка узла. Смотрит соседние и, если нужно производит релаксацию
+        /// </summary>
+        /// <param name="s"></param>
 		public void LookAroundNode(Node s){
-			Node cn = s;
-			foreach(AdjNode an in cn.neighbors){
-				int w;
-				//int r;
-				if (an.route == cn.r || cn.r == -1) w = 1; else w = 4;
-				try {
-					if (cn.len + w < an.node.len){
-						Console.WriteLine("Релаксация");
-						an.node.len = cn.len + w;
-						an.node.r = an.route;
-					}
-				}
-				catch {}
-					// релаксация нашли более короткий путь
-			}
-			
-			
+            try
+            {
+                Node cn = s;
+                foreach (AdjNode an in cn.neighbors)
+                {
+                    int w;
+                    //int r;
+                    if (an.route == cn.r || cn.r == -1) w = 1; else w = 4;
+                    try
+                    {
+                        if (cn.len + w < an.node.len)
+                        {
+                            // релаксация нашли более короткий путь
+                            Console.WriteLine("Релаксация");
+                            an.node.len = cn.len + w;
+                            an.node.r = an.route;
+                            an.node.prevn = s.n;
+                            an.node.prev = s;
+                        }
+                    }
+                    catch(Exception ee) {
+                        Console.WriteLine(ee.Message);
+                    }
+                    
+                }
+
+            }
+            catch (Exception ex) {
+                Console.WriteLine(ex.Message);
+            }
 		}
 		
 		public void Print(){

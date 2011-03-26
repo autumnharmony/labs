@@ -35,7 +35,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Name = "GraphViewer";
+            this.Size = new System.Drawing.Size(604, 473);
             this.Load += new System.EventHandler(this.GraphView_Load);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.GraphViewer_MouseMove);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.GraphView_MouseClick);

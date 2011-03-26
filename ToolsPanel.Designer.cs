@@ -38,6 +38,7 @@
             this.resultLbl = new System.Windows.Forms.Label();
             this.resultBtn = new System.Windows.Forms.Button();
             this.endRoute = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // routesListBox
@@ -128,11 +129,20 @@
             // 
             this.endRoute.Location = new System.Drawing.Point(90, 0);
             this.endRoute.Name = "endRoute";
-            this.endRoute.Size = new System.Drawing.Size(75, 23);
+            this.endRoute.Size = new System.Drawing.Size(30, 23);
             this.endRoute.TabIndex = 17;
             this.endRoute.Text = "button1";
             this.endRoute.UseVisualStyleBackColor = true;
             this.endRoute.Click += new System.EventHandler(this.endRoute_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(90, 35);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(67, 158);
+            this.textBox1.TabIndex = 18;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // ToolsPanel
             // 
@@ -140,6 +150,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.endRoute);
             this.Controls.Add(this.resultBtn);
             this.Controls.Add(this.resultLbl);
@@ -150,7 +161,7 @@
             this.Controls.Add(this.selectBtn);
             this.Controls.Add(this.pointBtn);
             this.Name = "ToolsPanel";
-            this.Size = new System.Drawing.Size(168, 213);
+            this.Size = new System.Drawing.Size(160, 213);
             this.Load += new System.EventHandler(this.ToolsPanel_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -168,5 +179,6 @@
         private System.Windows.Forms.Label resultLbl;
         private System.Windows.Forms.Button resultBtn;
         private System.Windows.Forms.Button endRoute;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

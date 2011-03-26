@@ -1,9 +1,12 @@
 ﻿
 using System;
 using System.Drawing;
+using System.Collections;
+using System.Runtime.Serialization;
 
 namespace GBusManager
 {
+    [Serializable()]
 	/// <summary>
 	/// Description of Route.
 	/// </summary>
@@ -43,6 +46,22 @@ namespace GBusManager
         public override string ToString()
         {
             return rs;
+        }
+
+        public int Near(int n, int d)
+        {
+            int i = 0;// = rs.IndexOf(n.ToString());
+            try
+            {
+                for (i = 0; i < nodes.Length && nodes[i] != n; i++)
+                    ;
+                //ArrayList a;
+                //a.AddRange();
+           
+                //if (i+d) 
+                return nodes[i + d];
+            }
+            catch { return nodes[i - d]; } 
         }
 
 

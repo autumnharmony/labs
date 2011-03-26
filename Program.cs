@@ -17,6 +17,7 @@ namespace GBusManager
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
+            
 			Application.Run(new MainForm());
 		}
 		
