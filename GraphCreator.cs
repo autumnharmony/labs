@@ -11,11 +11,7 @@ namespace GBusManager
 {
 
 
-    public class ViewEventArgs : EventArgs
-    {
-        public GState State;
-        public System.Collections.ArrayList Routes;
-    }
+ 
 
     public partial class GraphCreator :  GraphViewer
     {
@@ -31,41 +27,7 @@ namespace GBusManager
         ToolsPanel tp;
 
         
-        public event ViewEventHandler ViewEvent;
-
-        protected virtual void OnViewEvent(ViewEventArgs e)
-        {
-            ViewEvent(this, e);
-        }
-
-        public enum GState
-        {
-            OnlyNodes,
-            NodesAndRoutes,
-            RouteDraw,
-            ResultPath
-        }
-
-        State state;
-
-        public State State
-        {
-            get
-            {
-                return state;
-            }
-
-            set
-            {
-                state = value;
-                ViewEventArgs vea = new ViewEventArgs();
-                vea.State = value;
-                if (value == GState.NodesAndRoutes){
-                    OnViewEvent(vea);
-                }
-            }
-        }
-
+     
 
 
 

@@ -8,7 +8,7 @@ namespace GBusManager
     /// <summary>
     /// Контейнер для маршрутов, начал делать
     /// </summary>
-    class Routes:ICollection<Route>
+    class Routes:ICollection<Route>,IList<Route>
     {
         Route[] routes;
 
@@ -98,6 +98,37 @@ namespace GBusManager
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region Члены IList<Route>
+
+        public int IndexOf(Route item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Insert(int index, Route item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveAt(int index)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Route this[int index]
+        {
+            get
+            {
+                return routes[index];
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
 
         #endregion
