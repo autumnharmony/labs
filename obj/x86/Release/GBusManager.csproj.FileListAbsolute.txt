@@ -1,0 +1,11 @@
+F:\My Dropbox\BusManager\GBusManager\bin\Release\GBusManager.exe.config
+F:\My Dropbox\BusManager\GBusManager\bin\Release\GBusManager.exe
+F:\My Dropbox\BusManager\GBusManager\obj\x86\Release\ResolveAssemblyReference.cache
+F:\My Dropbox\BusManager\GBusManager\obj\x86\Release\GBusManager.GraphCreator.resources
+F:\My Dropbox\BusManager\GBusManager\obj\x86\Release\GBusManager.GraphViewer.resources
+F:\My Dropbox\BusManager\GBusManager\obj\x86\Release\GBusManager.MainForm.resources
+F:\My Dropbox\BusManager\GBusManager\obj\x86\Release\GBusManager.Properties.Resources.resources
+F:\My Dropbox\BusManager\GBusManager\obj\x86\Release\GBusManager.Resource1.resources
+F:\My Dropbox\BusManager\GBusManager\obj\x86\Release\GBusManager.ToolsPanel.resources
+F:\My Dropbox\BusManager\GBusManager\obj\x86\Release\GBusManager.csproj.GenerateResource.Cache
+F:\My Dropbox\BusManager\GBusManager\obj\x86\Release\GBusManager.exe
