@@ -6,6 +6,7 @@ using System.Collections;
 
 namespace GBusManager
 {
+    /*
     public class ViewEventArgs : EventArgs
     {
         public GState State;
@@ -13,11 +14,11 @@ namespace GBusManager
     }
 
     public delegate void ViewEventHandler(object sender, ViewEventArgs e);
-
+    */
 
     static class Status
     {
-
+        /*
 
         public event ViewEventHandler ViewEvent;
 
@@ -54,7 +55,7 @@ namespace GBusManager
                 }
             }
         }
-
+        */
 
         public static Misc.Mode mode = Misc.Mode.Point;
 

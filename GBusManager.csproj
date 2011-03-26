@@ -84,6 +84,7 @@
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
     <Compile Include="Route.cs" />
+    <Compile Include="Routes.cs" />
     <Compile Include="SaveLoad.cs" />
     <Compile Include="Settings1.Designer.cs">
       <AutoGen>True</AutoGen>
