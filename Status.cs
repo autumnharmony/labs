@@ -6,56 +6,11 @@ using System.Collections;
 
 namespace GBusManager
 {
-    /*
-    public class ViewEventArgs : EventArgs
-    {
-        public GState State;
-        public System.Collections.ArrayList Routes;
-    }
-
-    public delegate void ViewEventHandler(object sender, ViewEventArgs e);
-    */
+ 
 
     static class Status
     {
-        /*
-
-        public event ViewEventHandler ViewEvent;
-
-        protected virtual void OnViewEvent(ViewEventArgs e)
-        {
-            ViewEvent(this, e);
-        }
-
-        public enum GState
-        {
-            OnlyNodes,
-            NodesAndRoutes,
-            RouteDraw,
-            ResultPath
-        }
-
-        State state;
-
-        public State State
-        {
-            get
-            {
-                return state;
-            }
-
-            set
-            {
-                state = value;
-                ViewEventArgs vea = new ViewEventArgs();
-                vea.State = value;
-                if (value == GState.NodesAndRoutes)
-                {
-                    OnViewEvent(vea);
-                }
-            }
-        }
-        */
+       
 
         public static Misc.Mode mode = Misc.Mode.Point;
 
@@ -82,5 +37,9 @@ namespace GBusManager
         public static bool DEBUG = false;
 
         public static bool ElEd = false;
+
+        public static Points myPoints = new Points(10);
+
+        public static Routes myRoutes;
     }
 }

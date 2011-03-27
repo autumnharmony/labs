@@ -4,7 +4,23 @@ using System.Linq;
 using System.Text;
 
 namespace GBusManager
-{   
+{
+
+   
+ public class PointsEventArgs : EventArgs
+ {
+     public Point point;
+
+     public PointsEventArgs(Point p)
+     {
+         point = p;
+     }
+     
+ }
+
+ public delegate void PointAddedHandler(object sender, PointsEventArgs e);
+ 
+
     /// <summary>
     /// Контейнер для точек с операциями доступа 
     /// </summary>
@@ -12,16 +28,59 @@ namespace GBusManager
     class Points:ICollection<Point>,IList<Point>
     {
 
+        
+
+       public event PointAddedHandler PointAdded;
+
+       protected virtual void OnPointAdded(PointsEventArgs e)
+       {
+           //PointsEventArgs pea = new PointsEventArgs(points[cnt]);
+           //pea.p = points[cnt];
+           PointAdded(this, e);
+       }
+
+      
+
+        Point[] points;
+
+        int capacity;
+
+        int cnt;
+
+        public Points(int capacity)
+        {
+            cnt = 0;
+            points = new Point[capacity];
+            this.capacity = capacity;
+        }
+
         #region Члены ICollection<Point>
 
         public void Add(Point item)
         {
-            throw new NotImplementedException();
+            if (cnt == capacity)
+            {
+                Console.WriteLine("Нужно увеличить емкость Points");
+                capacity = capacity * 2;
+                Point[] newpoints = new Point[capacity];
+
+                for (int i = 0; i < points.Length; i++)
+                {
+                    newpoints[i] = points[i];
+                }
+                points = newpoints;
+
+            }
+
+            points[cnt++] = item;
+
+            OnPointAdded(new PointsEventArgs(item));
         }
 
         public void Clear()
         {
-            throw new NotImplementedException();
+            cnt = 0;
+            points = new Point[capacity];
         }
 
         public bool Contains(Point item)
@@ -36,7 +95,7 @@ namespace GBusManager
 
         public int Count
         {
-            get { throw new NotImplementedException(); }
+            get { return cnt; }
         }
 
         public bool IsReadOnly
@@ -46,7 +105,16 @@ namespace GBusManager
 
         public bool Remove(Point item)
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < cnt; i++)
+            {
+                if (points[i] == item)
+                {
+                    points[i] = null;
+                    return true;
+                }
+
+            }
+            return false;
         }
 
         #endregion
@@ -90,11 +158,20 @@ namespace GBusManager
         {
             get
             {
-                throw new NotImplementedException();
+                if (index <= capacity)
+                {
+                    return points[index];
+                }
+                else throw new IndexOutOfRangeException();
+                
             }
             set
             {
-                throw new NotImplementedException();
+                if (index <= capacity)
+                {
+                    points[index] = value;
+                }
+                else throw new IndexOutOfRangeException();
             }
         }
 

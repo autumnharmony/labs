@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Collections;
 
 namespace GBusManager
 {
@@ -26,11 +27,17 @@ namespace GBusManager
 
         ToolsPanel tp;
 
-        
-     
 
 
+        GState prevstate;
 
+        //ArrayL
+
+        public ArrayList tempedges = new ArrayList();
+
+        public ArrayList tempdiredges = new ArrayList();
+
+        public ArrayList activeroutes = new ArrayList();
 
         public GraphCreator()
         {
@@ -39,12 +46,21 @@ namespace GBusManager
             //edges = Status.
             this.g = this.CreateGraphics();
             InitializeComponent();
+
+            Status.myPoints.PointAdded += new PointAddedHandler(myPoints_PointAdded);
+        }
+
+        void myPoints_PointAdded(object sender, PointsEventArgs e)
+        {
+            Console.WriteLine("GraphCreator должен нарисовать новую точку {0}",e.point);
         }
 
         public void ResetRouteInfo()
         {
             lpn = -1;
             crs = "";
+            tempedges.Clear();
+            state = GState.NodesAndRoutes;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -81,6 +97,7 @@ namespace GBusManager
                     c++;
                     this.Controls.Remove(addBtn);
                     this.Controls.Remove(tb);
+                    /*
                     Label lbl = new Label();
                     lbl.Text = tb.Text;
                     Font f = new Font(FontFamily.GenericMonospace, 8);
@@ -93,9 +110,11 @@ namespace GBusManager
                     lbl.BorderStyle = BorderStyle.None;
                     lbl.Top = e.Y + lbl.Height / 2;
                     lbl.Left = e.X + lbl.Width / 2;
-
-                    Node n = new Node(int.Parse(tb.Text), lbl, e.X, e.Y);
+                    */
+                    //g.DrawString(n.ToString(), new Font("Arial", 10), new SolidBrush(Color.Black), new PointF(x, y));
+                    Node n = new Node(int.Parse(tb.Text), e.X, e.Y);
                     Point pp = new Point(e.X, e.Y, int.Parse(tb.Text));
+                    Status.myPoints.Add(pp);
                     points.Add(pp);
                     Status.tp.RefreshRoutesAndPoints();
                 };
@@ -133,11 +152,12 @@ namespace GBusManager
 				if (p!=null) {
 					f = p;
 					drawLine = false;
-                    
+                    //state = GState.RouteDraw;
 					
                     if (Status.DEBUG) MessageBox.Show("("+x1+","+y1+") -> ("+p.X+","+p.Y+")");
 					
                     //DrawNodes(true);
+                    tempedges.Add(new Edge(s, p, 0, 0));
 
                     g.DrawLine(new Pen(Color.Black), x1, y1, p.X, p.Y);
 
@@ -168,6 +188,8 @@ namespace GBusManager
                    
                     
                     drawLine = true;
+                    GState prevstate = state;
+                    state = GState.RouteDraw;
                     s = p;
                     x1 = p.X;
                     y1 = p.Y;
@@ -179,13 +201,82 @@ namespace GBusManager
 
         private void GraphCreator_Paint(object sender, PaintEventArgs e)
         {
-            this.DrawAll();
+            //this.DrawAll();
+            Console.WriteLine("GraphCreator_Paint");
+            switch (state){
+
+                case GState.OnlyNodes:
+                    {
+                        Console.WriteLine("OnlyNodes");
+                        DrawNodes(true);
+                        break;
+                    }
+                case GState.NodesAndRoutes:
+                    {
+                        Console.WriteLine("NodesAndRoutes");
+                        DrawNodes(true);
+                        edges.Clear();
+                        DrawRoutes((Route[])Status.graphcreator.activeroutes.ToArray(typeof(Route)));
+                        break;
+                    }
+                case GState.RouteDraw:
+                    {
+                        Console.WriteLine("RouteDraw");
+                        DrawNodes(true);
+                        DrawTempEdges(tempedges);
+                        break;
+                    }
+                case GState.ResultPath:
+                    {
+                        DrawNodes(true);
+                        foreach (object o in tempdiredges){
+                            Edge ed = (Edge)o;
+                            DrawDirectEdge(ed.P1, ed.P2, ed.c);
+                        }
+                        break;
+
+                    }
+            }
+
+            
         }
 
         public void DrawExisting()
         {
 
         }
+
+
+        public enum GState
+        {
+         OnlyNodes,
+         NodesAndRoutes,
+         RouteDraw,
+         ResultPath
+        }
+
+        public GState state = GState.NodesAndRoutes;
+        /*
+        public State State
+        {
+            get
+            {
+                return state;
+            }
+
+            set
+            {
+                state = value;
+                ViewEventArgs vea = new ViewEventArgs();
+                vea.State = value;
+                if (value == GState.NodesAndRoutes)
+                {
+                    OnViewEvent(vea);
+                }
+            }
+        }
+          */
+     
 
        
     }

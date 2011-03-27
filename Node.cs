@@ -82,13 +82,13 @@ namespace GBusManager
             point = p;
 		}
 		
-		public Node(int bn, Label l, int x, int y)
+		public Node(int bn, int x, int y)
 		{
 			//graph = g;
 			n = bn;
 			X = x;
 			Y = y;
-			label = l;
+			//label = l;
             len = int.MaxValue;
 		}
 		

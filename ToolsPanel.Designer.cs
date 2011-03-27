@@ -38,7 +38,6 @@
             this.resultLbl = new System.Windows.Forms.Label();
             this.resultBtn = new System.Windows.Forms.Button();
             this.endRoute = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // routesListBox
@@ -118,10 +117,11 @@
             // resultBtn
             // 
             this.resultBtn.Location = new System.Drawing.Point(4, 170);
+            this.resultBtn.Margin = new System.Windows.Forms.Padding(0);
             this.resultBtn.Name = "resultBtn";
-            this.resultBtn.Size = new System.Drawing.Size(75, 23);
+            this.resultBtn.Size = new System.Drawing.Size(83, 23);
             this.resultBtn.TabIndex = 16;
-            this.resultBtn.Text = "button7";
+            this.resultBtn.Text = "Кратчайший";
             this.resultBtn.UseVisualStyleBackColor = true;
             this.resultBtn.Click += new System.EventHandler(this.resultBtn_Click);
             // 
@@ -135,22 +135,12 @@
             this.endRoute.UseVisualStyleBackColor = true;
             this.endRoute.Click += new System.EventHandler(this.endRoute_Click);
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(90, 35);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(67, 158);
-            this.textBox1.TabIndex = 18;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
             // ToolsPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.endRoute);
             this.Controls.Add(this.resultBtn);
             this.Controls.Add(this.resultLbl);
@@ -161,7 +151,7 @@
             this.Controls.Add(this.selectBtn);
             this.Controls.Add(this.pointBtn);
             this.Name = "ToolsPanel";
-            this.Size = new System.Drawing.Size(160, 213);
+            this.Size = new System.Drawing.Size(123, 213);
             this.Load += new System.EventHandler(this.ToolsPanel_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -179,6 +169,5 @@
         private System.Windows.Forms.Label resultLbl;
         private System.Windows.Forms.Button resultBtn;
         private System.Windows.Forms.Button endRoute;
-        private System.Windows.Forms.TextBox textBox1;
     }
 }

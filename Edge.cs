@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace GBusManager
 {
@@ -18,6 +19,8 @@ namespace GBusManager
         int route;
 
         public int n;
+
+        public Color c;
 
         public Point P1
         {
@@ -40,6 +43,15 @@ namespace GBusManager
             p2 = b;
             route = r;
             this.n = n;
+        }
+
+        public Edge(Point a, Point b, int r, int n,Color c)
+        {
+            p1 = a;
+            p2 = b;
+            route = r;
+            this.n = n;
+            this.c = c;
         }
         
     }

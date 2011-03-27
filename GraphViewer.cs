@@ -76,6 +76,7 @@ namespace GBusManager
 
             if (label)
             {
+                /*
                 Label lbl = new Label();
                 lbl.Text = n.ToString();
                 lbl.Font = new Font(FontFamily.GenericMonospace, 8); ;
@@ -86,12 +87,15 @@ namespace GBusManager
                 lbl.Top = y + lbl.Height / 2;
                 lbl.Left = x + lbl.Width / 2;
                 Controls.Add(lbl);
+                 */ 
+                g.DrawString(n.ToString(), new Font("Arial", 10), new SolidBrush(Color.Black), new PointF(x, y));
+
             }
 
             g.FillEllipse(new SolidBrush(color), x - point.Size / 2, y - point.Size / 2, point.Size, point.Size);
         }
 
-        void DrawEdge(Point s, Point f, Color color)
+        public void DrawEdge(Point s, Point f, Color color)
         {
             /*
              * TODO: проверка, если уже нарисовано, то нарисовать со смещением
@@ -131,8 +135,14 @@ namespace GBusManager
                     
 
                     int cc = Settings1.Default.BetweenEdgesK * ((c+1) / 2) ;
-
-                    k = (p4.Y - p1.Y) / (p4.X - p1.X);
+                    try
+                    {
+                        k = (p4.Y - p1.Y) / (p4.X - p1.X);
+                    }
+                    catch (DivideByZeroException)
+                    {
+                        k = 0;
+                    }
 
                     if (c % 2 == 0)
                     {
@@ -152,7 +162,7 @@ namespace GBusManager
                                 Point p23 = new Point();
                                 p23 = MidShiftPoint(p1, p4, -1, cc);
                                 g.DrawBezier(new Pen(Color.Green), p1, p23, p23, p4);
-                                DrawPoint(p23.Sized(5));
+                                if (Status.DEBUG) DrawPoint(p23.Sized(5));
                             }
 
                             else {
@@ -212,7 +222,7 @@ namespace GBusManager
                                 Point p23 = new Point();
                                 p23 = MidShiftPoint(p1, p4, 1, cc);
                                 g.DrawBezier(new Pen(color), p1, p23, p23, p4);
-                                DrawPoint(p23.Sized(5));
+                                if (Status.DEBUG) DrawPoint(p23.Sized(5));
                             }
 
                             else
@@ -244,7 +254,7 @@ namespace GBusManager
             int y = Math.Min(p1.Y, p2.Y) + ((Math.Max(p1.Y, p2.Y) - Math.Min(p1.Y, p2.Y)) / 2);
             Console.WriteLine("p({0},{1})", x,y);
             Point p = new Point(x,y);
-            //if (Status.DEBUG) 
+            if (Status.DEBUG) 
                 DrawPoint(p.Sized(5).Colored(Color.Black));
             return p;
         }
@@ -255,7 +265,16 @@ namespace GBusManager
             Console.WriteLine("p1({0},{1}) p2({2},{3})", p1.X, p1.Y, p2.X, p2.Y);
             // коэф = tg 
             //double k = ((double)(Math.Max(p1.Y, p2.Y) - Math.Min(p1.Y, p2.Y))) / (double)((Math.Max(p1.X, p2.X) - Math.Min(p1.X, p2.X)));
-            double k = (double)(p2.Y - p1.Y) / (double)(p2.X - p1.X);
+            double k;
+            try
+            {
+                k = (double)((p2.Y - p1.Y) / (p2.X - p1.X));
+            }
+
+            catch (DivideByZeroException)
+            {
+                k = 0;
+            }
             Console.WriteLine("k = {0}", k);
             Point mp = MidPoint(p1, p2);
 
@@ -389,6 +408,16 @@ namespace GBusManager
             this.Controls.Clear();
             g.Clear(Color.White);
             DrawNodes(l);
+        }
+
+        public void DrawTempEdges(ArrayList edges)
+        {
+            foreach (object o in edges)
+            {
+                Edge e = (Edge)o;
+                g.DrawLine(new Pen(Color.Black), e.P1, e.P2);
+            }
+
         }
 
             

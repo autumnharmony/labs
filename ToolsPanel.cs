@@ -59,9 +59,19 @@ namespace GBusManager
 
         private void button3_Click(object sender, EventArgs e)
         {
-            //Misc.Mode prevmode = Status.
-            Status.mode = Misc.Mode.Line;
-
+            if (Status.mode != Misc.Mode.Line)
+            {
+                Status.mode = Misc.Mode.Line;
+                lineBtn.Image = Resource1.cross;
+                
+            }
+            else
+            {
+                endRoute_Click(sender, e);
+                lineBtn.Image = Resource1.layer_shape_polyline;
+                Status.mode = Misc.Mode.Select;
+            }
+            
             //button3.Enabled = false;
         }
 
@@ -95,6 +105,8 @@ namespace GBusManager
 
         private void routesListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            Status.graphcreator.activeroutes.Clear();
+
             ListBox.SelectedIndexCollection ic = routesListBox.SelectedIndices;
             Status.graphcreator.Redraw(true);
             //MessageBox.Show(n.ToString());
@@ -102,6 +114,7 @@ namespace GBusManager
                 foreach (int i in ic)
                 {
                     if (i != -1) Status.graphcreator.DrawRoute((Route)routes[i],false);
+                    Status.graphcreator.activeroutes.Add((Route)routes[i]);
                 }
         }
 
@@ -125,15 +138,16 @@ namespace GBusManager
             try
             {
                 Array a = routes.ToArray(typeof(Route));
-
+                graphcreator.tempdiredges.Clear();
                 Graph g = new Graph(points, a as Route[]);
                 string path;
                 resultLbl.Text = g.ShortestRoute(srcPoint.SelectedIndex, destPoint.SelectedIndex, out path).ToString();
-                textBox1.Text = path;
+                    
 
                 Node c1 = null;
                 Node c2 = null;
                 //graphcreator.CreateGraphics().Clear(Color.White);
+                graphcreator.state = GraphCreator.GState.ResultPath;
                 graphcreator.Redraw(true);
                 graphcreator.DrawNodes(true);
                 while (g.nodestomove.Count >1)
@@ -150,7 +164,9 @@ namespace GBusManager
                     c2 = (Node)g.nodestomove.Peek();
 
                     graphcreator.DrawDirectEdge(c1.point, c2.point, ((Route)routes[c1.r]).color);
+                    graphcreator.tempdiredges.Add(new Edge(c1.point, c2.point, c1.r, 0, ((Route)routes[c1.r]).color));
                 }
+                MessageBox.Show(path);
             }
             catch (Exception ex) { MessageBox.Show(ex.Message + "+" + ex.StackTrace); }
         }
@@ -159,9 +175,12 @@ namespace GBusManager
         {
             try
             {
-                routes.Add(new Route(graphcreator.crs));
+                Route r = new Route(graphcreator.crs);
+                //routes.Add(r);
+                Status.Routes.Add(r);
                 if (Status.DEBUG) MessageBox.Show(graphcreator.crs);
                 graphcreator.ResetRouteInfo();
+                
                 RefreshRoutesAndPoints();
             }
             catch (Exception ex)

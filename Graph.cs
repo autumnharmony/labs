@@ -109,16 +109,28 @@ namespace GBusManager
                 Node start = Node(s);
 
                 Node current = Node(f);
+                Node prev = null;
 
                 while (current != start)
                 {
-                    path = "по (" + current.r + ")" + " в " + current.n + path + "\n";
+
+                    
+                    if (prev !=null && current.r != prev.r )
+                    {
+                        path = "\n пересесть на маршрут" + prev.r.ToString() + " "+ path;
+                    }
+
+                    //path = "по (" + current.r + ")" + " в " + current.n + path + "\n";
+
+                    path = "ехать в " + current.n +" "+ path;
 
                     nodestomove.Enqueue(current);
 
+                    prev = current;
+
                     if (((" "+routes[current.r].rs+" ").IndexOf(" " + current.n.ToString() + " ")) > (((" "+routes[current.r].rs+" ").IndexOf(" " +Node(current.prevn).n.ToString() + " "))))
                     {
-
+                        
                         current = current.Neighbor(current.r, -1);
                         
                     }
@@ -127,6 +139,8 @@ namespace GBusManager
                     
 
                 }
+
+                path = "Инструкция: на " + prev.r + " маршруте " + path;
                 nodestomove.Enqueue(start);
                 
                 p = path;

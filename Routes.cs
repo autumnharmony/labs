@@ -30,7 +30,10 @@ namespace GBusManager
         {
             if (cnt == capacity)
             {
-                Route[] newroutes = new Route[capacity * 2];
+                Console.WriteLine("Нужно увеличить емкость Routes");
+                capacity = capacity * 2;
+                Route[] newroutes = new Route[capacity];
+                
                 for (int i = 0; i < routes.Length; i++)
                 {
                     newroutes[i] = routes[i];
@@ -44,7 +47,8 @@ namespace GBusManager
 
         public void Clear()
         {
-            throw new NotImplementedException();
+            cnt = 0;
+            routes = new Route[capacity];
         }
 
         public bool Contains(Route item)
@@ -123,11 +127,20 @@ namespace GBusManager
         {
             get
             {
-                return routes[index];
+                if (index <= capacity)
+                {
+                    return routes[index];
+                }
+                else throw new IndexOutOfRangeException();
+
             }
             set
             {
-                throw new NotImplementedException();
+                if (index <= capacity)
+                {
+                    routes[index] = value;
+                }
+                else throw new IndexOutOfRangeException();
             }
         }
 

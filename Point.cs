@@ -103,7 +103,7 @@ namespace GBusManager
         public override string ToString()
         {
             //return "" + N.ToString() ;
-            return String.Format("({0},{1})", X, Y);
+            return String.Format("{0} ({1},{2})",N, X, Y);
         }
 
         
