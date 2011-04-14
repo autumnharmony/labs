@@ -159,7 +159,7 @@ namespace GBusManager
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                //MessageBox.Show(ex.Message);
             }
         }
 
@@ -194,6 +194,12 @@ namespace GBusManager
         private void toolsPanel2_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Console.WriteLine("Need to save data");
+            SaveLoad.Save();
         }
 
            

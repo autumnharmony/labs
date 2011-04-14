@@ -161,7 +161,7 @@ namespace GBusManager
                             {
                                 Point p23 = new Point();
                                 p23 = MidShiftPoint(p1, p4, -1, cc);
-                                g.DrawBezier(new Pen(Color.Green), p1, p23, p23, p4);
+                                g.DrawBezier(new Pen(color), p1, p23, p23, p4);
                                 if (Status.DEBUG) DrawPoint(p23.Sized(5));
                             }
 
@@ -310,12 +310,12 @@ namespace GBusManager
 
             // стрелка
             Pen p = new Pen(c);
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            //g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             //g.ScaleTransform(
             p.StartCap = System.Drawing.Drawing2D.LineCap.ArrowAnchor;
             p.CustomStartCap = new System.Drawing.Drawing2D.AdjustableArrowCap(8, 5, true);
             //p.EndCap = System.Drawing.Drawing2D.LineCap.ArrowAnchor;
-            p.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+            //p.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
 
             g.DrawLine(p, p1.X, p1.Y, p2.X, p2.Y);
 

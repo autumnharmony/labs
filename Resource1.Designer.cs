@@ -67,6 +67,20 @@ namespace GBusManager {
             }
         }
         
+        internal static System.Drawing.Bitmap disk__arrow {
+            get {
+                object obj = ResourceManager.GetObject("disk__arrow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap disk__pencil {
+            get {
+                object obj = ResourceManager.GetObject("disk__pencil", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap layer_select_point {
             get {
                 object obj = ResourceManager.GetObject("layer_select_point", resourceCulture);
@@ -91,6 +105,13 @@ namespace GBusManager {
         internal static System.Drawing.Bitmap pin__plus {
             get {
                 object obj = ResourceManager.GetObject("pin__plus", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap wrench {
+            get {
+                object obj = ResourceManager.GetObject("wrench", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

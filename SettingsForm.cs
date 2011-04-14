@@ -14,7 +14,7 @@ namespace GBusManager
         public SettingsForm()
         {
             InitializeComponent();
-            //graphCreator1.
+            //graphCreator1.DisableEdit();
         }
 
         private void pointSizeTrackBar_Scroll(object sender, EventArgs e)
@@ -45,8 +45,10 @@ namespace GBusManager
         private void SettingsForm_Load(object sender, EventArgs e)
         {
             //graphCreator1 = new GraphViewer(
+           
             try
             {
+            	 throw new NotImplementedException();
 
                 Point p1 = new Point(20, 20, Settings1.Default.NodeSize,0, Color.Black);
                 Point p2 = new Point(40, 40, Settings1.Default.NodeSize,1, Color.Black);

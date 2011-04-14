@@ -36,7 +36,7 @@ namespace GBusManager
 
         public static bool DEBUG = false;
 
-        public static bool ElEd = false;
+        public static bool ElEd = true;
 
         public static Points myPoints = new Points(10);
 

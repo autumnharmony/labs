@@ -28,6 +28,7 @@ namespace GBusManager
         ToolsPanel tp;
 
 
+        bool newPointBlock; // не позволяет добавлять новые точки, пока не подтверждено добавление предыдущей
 
         GState prevstate;
 
@@ -48,6 +49,12 @@ namespace GBusManager
             InitializeComponent();
 
             Status.myPoints.PointAdded += new PointAddedHandler(myPoints_PointAdded);
+            Status.myPoints.PointDeleted += new PointAddedHandler(myPoints_PointDeleted);
+        }
+
+        void myPoints_PointDeleted(object sender, PointsEventArgs e)
+        {
+            Console.WriteLine("GraphCreator должен стереть точку {0}", e.point);
         }
 
         void myPoints_PointAdded(object sender, PointsEventArgs e)
@@ -79,46 +86,51 @@ namespace GBusManager
             {
                 #region Point
 
-                g.FillEllipse(new SolidBrush(Color.Black), e.X - Settings1.Default.NodeSize / 2, e.Y - Settings1.Default.NodeSize / 2, Settings1.Default.NodeSize, Settings1.Default.NodeSize);
-                
-                TextBox tb = new TextBox();
-                this.Controls.Add(tb);
-                tb.Left = e.X;
-                tb.Top = e.Y - tb.Height;
-                tb.Width = 20;
-                tb.Text = c.ToString();
-                Button addBtn = new Button();
-                
-                addBtn.Left = e.X + tb.Width;
-                addBtn.Top = e.Y - addBtn.Height;
-                addBtn.Width = 20;
-                addBtn.Click += delegate
+                if (!newPointBlock)
                 {
-                    c++;
-                    this.Controls.Remove(addBtn);
-                    this.Controls.Remove(tb);
-                    /*
-                    Label lbl = new Label();
-                    lbl.Text = tb.Text;
-                    Font f = new Font(FontFamily.GenericMonospace, 8);
-                    lbl.Font = f;
+                    newPointBlock = true;
+                    g.FillEllipse(new SolidBrush(Color.Black), e.X - Settings1.Default.NodeSize / 2, e.Y - Settings1.Default.NodeSize / 2, Settings1.Default.NodeSize, Settings1.Default.NodeSize);
 
-                    lbl.AutoSize = true;
-                    Pen p = new Pen(Color.Black);
+                    TextBox tb = new TextBox();
+                    this.Controls.Add(tb);
+                    tb.Left = e.X;
+                    tb.Top = e.Y - tb.Height;
+                    tb.Width = 20;
+                    tb.Text = c.ToString();
+                    Button addBtn = new Button();
 
-                    this.Controls.Add(lbl);
-                    lbl.BorderStyle = BorderStyle.None;
-                    lbl.Top = e.Y + lbl.Height / 2;
-                    lbl.Left = e.X + lbl.Width / 2;
-                    */
-                    //g.DrawString(n.ToString(), new Font("Arial", 10), new SolidBrush(Color.Black), new PointF(x, y));
-                    Node n = new Node(int.Parse(tb.Text), e.X, e.Y);
-                    Point pp = new Point(e.X, e.Y, int.Parse(tb.Text));
-                    Status.myPoints.Add(pp);
-                    points.Add(pp);
-                    Status.tp.RefreshRoutesAndPoints();
-                };
-                this.Controls.Add(addBtn);
+                    addBtn.Left = e.X + tb.Width;
+                    addBtn.Top = e.Y - addBtn.Height;
+                    addBtn.Width = 20;
+                    addBtn.Click += delegate
+                    {
+                        c++;
+                        this.Controls.Remove(addBtn);
+                        this.Controls.Remove(tb);
+                        /*
+                        Label lbl = new Label();
+                        lbl.Text = tb.Text;
+                        Font f = new Font(FontFamily.GenericMonospace, 8);
+                        lbl.Font = f;
+
+                        lbl.AutoSize = true;
+                        Pen p = new Pen(Color.Black);
+
+                        this.Controls.Add(lbl);
+                        lbl.BorderStyle = BorderStyle.None;
+                        lbl.Top = e.Y + lbl.Height / 2;
+                        lbl.Left = e.X + lbl.Width / 2;
+                        */
+                        //g.DrawString(n.ToString(), new Font("Arial", 10), new SolidBrush(Color.Black), new PointF(x, y));
+                        Node n = new Node(int.Parse(tb.Text), e.X, e.Y);
+                        Point pp = new Point(e.X, e.Y, int.Parse(tb.Text));
+                        Status.myPoints.Add(pp);
+                        points.Add(pp);
+                        Status.tp.RefreshRoutesAndPoints();
+                        newPointBlock = false;
+                    };
+                    this.Controls.Add(addBtn);
+                }
                 #endregion 
             }
             if (Status.mode == Misc.Mode.Select)
@@ -132,7 +144,7 @@ namespace GBusManager
                     selectedPoint = p;
                     p.selected = true;
                 }
-                //Redraw(true);
+                Redraw(true);
                 #endregion
             }
         }
@@ -213,10 +225,17 @@ namespace GBusManager
                     }
                 case GState.NodesAndRoutes:
                     {
-                        Console.WriteLine("NodesAndRoutes");
-                        DrawNodes(true);
-                        edges.Clear();
-                        DrawRoutes((Route[])Status.graphcreator.activeroutes.ToArray(typeof(Route)));
+                        try
+                        {
+                            Console.WriteLine("NodesAndRoutes");
+                            DrawNodes(true);
+                            edges.Clear();
+                            DrawRoutes((Route[])Status.graphcreator.activeroutes.ToArray(typeof(Route)));
+                        }
+                        catch (Exception ex)
+                        {
+                            //MessageBox.Show(ex.Message);
+                        }
                         break;
                     }
                 case GState.RouteDraw:

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 
@@ -31,17 +32,31 @@ namespace GBusManager
         
 
        public event PointAddedHandler PointAdded;
+       public event PointAddedHandler PointDeleted;
 
        protected virtual void OnPointAdded(PointsEventArgs e)
        {
            //PointsEventArgs pea = new PointsEventArgs(points[cnt]);
            //pea.p = points[cnt];
+           Console.WriteLine("Была добавлена точка {0}", e.point.ToString());
            PointAdded(this, e);
        }
+
+
+       protected virtual void OnPointDeleted(PointsEventArgs e)
+       {
+           //PointsEventArgs pea = new PointsEventArgs(points[cnt]);
+           //pea.p = points[cnt];
+           Console.WriteLine("Была удалена точка {0}", e.point.ToString());
+           PointDeleted(this, e);
+       }
+
 
       
 
         Point[] points;
+
+        //ArrayList<Point> p;
 
         int capacity;
 
@@ -110,6 +125,7 @@ namespace GBusManager
                 if (points[i] == item)
                 {
                     points[i] = null;
+                    OnPointDeleted(new PointsEventArgs(item));
                     return true;
                 }
 

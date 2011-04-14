@@ -154,4 +154,16 @@
   <ItemGroup>
     <None Include="Resources\cross.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\disc__arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\disk__arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\disk__pencil.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\wrench.png" />
+  </ItemGroup>
 </Project>

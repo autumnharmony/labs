@@ -17,6 +17,8 @@ namespace GBusManager
 
         public int n;
 
+        bool deleted;
+
         public Color color;
         
 		public int Length {
@@ -26,17 +28,24 @@ namespace GBusManager
 		}
 		public Route(string s)
 		{
-            rs = s;
-            Random rndm = new Random();
-            color = Color.FromArgb(rndm.Next(255), rndm.Next(255), rndm.Next(255));
+            if (s.Length > 0)
+            {
+                rs = s;
+                Random rndm = new Random();
+                color = Color.FromArgb(rndm.Next(255), rndm.Next(255), rndm.Next(255));
 
-			string[] ns = s.Split();
-			nodes = new int[ns.Length];
+                string[] ns = s.Split();
+                nodes = new int[ns.Length];
 
-            if (ns.Length < 2) { throw new Exception("Route must have at least 2 nodes length"); }
-			for (int i = 0; i< ns.Length; i++){
-				nodes[i] = int.Parse(ns[i]);
-			}
+                //if (ns.Length < 2) { throw new Exception("Route must have at least 2 nodes length"); }
+                for (int i = 0; i < ns.Length; i++)
+                {
+                    nodes[i] = int.Parse(ns[i]);
+                }
+            }
+            else {
+                Console.WriteLine("Empty route");
+            }
 		}
 		
 		public Route(int[] nn){
@@ -45,7 +54,7 @@ namespace GBusManager
 
         public override string ToString()
         {
-            return rs;
+            return ""+n+"." + "[" + rs + "]";
         }
 
         public int Near(int n, int d)

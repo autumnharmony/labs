@@ -111,18 +111,20 @@ namespace GBusManager
                 Node current = Node(f);
                 Node prev = null;
 
+                #region old
+
                 while (current != start)
                 {
 
                     
                     if (prev !=null && current.r != prev.r )
                     {
-                        path = "\n пересесть на маршрут" + prev.r.ToString() + " "+ path;
+                        path = "\n пересесть на маршрут " + prev.r.ToString() + " "+ path;
                     }
 
                     //path = "по (" + current.r + ")" + " в " + current.n + path + "\n";
 
-                    path = "ехать в " + current.n +" "+ path;
+                    path = ", ехать в " + current.n +" "+ path;
 
                     nodestomove.Enqueue(current);
 
@@ -136,9 +138,11 @@ namespace GBusManager
                     }
                     else current = current.Neighbor(current.r, 1);
 
-                    
+
 
                 }
+
+                #endregion
 
                 path = "Инструкция: на " + prev.r + " маршруте " + path;
                 nodestomove.Enqueue(start);

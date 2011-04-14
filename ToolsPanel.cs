@@ -82,6 +82,9 @@ namespace GBusManager
 
         public void RefreshRoutesAndPoints()
         {
+
+            ListBox.SelectedIndexCollection selected = this.routesListBox.SelectedIndices;
+
             this.BindingContext[routes].SuspendBinding();
             this.BindingContext[routes].ResumeBinding();
 
@@ -94,13 +97,20 @@ namespace GBusManager
             destPoint.BindingContext[points].SuspendBinding();
             destPoint.BindingContext[points].ResumeBinding();
 
-            //routesListBox.SelectedIndices.
-            //routesListBox.SelectedIndex = routesListBox.Items.Count-1;
+            for (int i = 0; i < routesListBox.Items.Count;i++ )
+            {
+                routesListBox.SetSelected(i, true);
+            }
+
+            
        }
 
         private void ToolsPanel_Load(object sender, EventArgs e)
         {
-
+            #if DEBUG
+            removeRouteBtn.Show();
+            selectAllRoutesBtn.Show();
+            #endif
         }
 
         private void routesListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -167,6 +177,8 @@ namespace GBusManager
                     graphcreator.tempdiredges.Add(new Edge(c1.point, c2.point, c1.r, 0, ((Route)routes[c1.r]).color));
                 }
                 MessageBox.Show(path);
+                
+                
             }
             catch (Exception ex) { MessageBox.Show(ex.Message + "+" + ex.StackTrace); }
         }
@@ -200,6 +212,24 @@ namespace GBusManager
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        
+
+        private void selectAllRoutesBtn_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < routesListBox.Items.Count; i++)
+            {
+                routesListBox.SetSelected(i, true);
+            }
+
+        }
+
+        private void removeRouteBtn_Click(object sender, EventArgs e)
+        {
+            if (routesListBox.SelectedIndices.Count == 1){
+                Status.Routes[routesListBox.SelectedIndices[0]] = new Route("");
+            }
         }
       
     }

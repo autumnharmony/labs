@@ -43,7 +43,7 @@ namespace GBusManager
             Console.WriteLine("Reading Points Information: Completed");
             stream.Close();
 
-            Status.graphcreator.points = Status.Points;
+            //Status.graphcreator.points = Status.Points;
 
             stream = File.Open("Routes.bin", FileMode.Open);
             Console.WriteLine("Reading Routes Information: Begins");
@@ -53,17 +53,17 @@ namespace GBusManager
 
             stream = File.Open("Edges.bin", FileMode.Open);
             Console.WriteLine("Reading Edges Information: Begins");
-            Status.graphcreator.edges = (System.Collections.ArrayList)bformatter.Deserialize(stream);
-            Status.Edges = Status.graphcreator.edges; //(System.Collections.ArrayList)bformatter.Deserialize(stream);
+            //Status.graphcreator.edges = (System.Collections.ArrayList)bformatter.Deserialize(stream);
+            //Status.Edges = Status.graphcreator.edges; //(System.Collections.ArrayList)bformatter.Deserialize(stream);
             Console.WriteLine("Reading Edges Information: Completed");
             stream.Close();
 
 
 
-            Status.tp.routes = Status.Routes;
-            Status.tp.RefreshRoutesAndPoints();
-            Status.graphcreator.Redraw(true);
-            Status.graphcreator.DrawRoutes(Status.Routes.ToArray(typeof(Route)) as Route[]);
+            //Status.tp.routes = Status.Routes;
+            //Status.tp.RefreshRoutesAndPoints();
+            //Status.graphcreator.Redraw(true);
+            //Status.graphcreator.DrawRoutes(Status.Routes.ToArray(typeof(Route)) as Route[]);
             
         }
             
