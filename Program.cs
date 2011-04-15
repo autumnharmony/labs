@@ -27,7 +27,8 @@ namespace GBusManager
                 Console.WriteLine("Loading failed, reason: " + e.Message+" "+e.StackTrace);
             }
 
-			Application.Run(new MainForm());
+			//Application.Run(new MainForm());
+			Application.Run(new ColorTest());
 		}
 		
 	}

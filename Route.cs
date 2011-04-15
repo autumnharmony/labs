@@ -51,7 +51,7 @@ namespace GBusManager
             }
 		}
 
-        Color RandomColor()
+        public static Color RandomColor()
         {
             Random random = new Random();
             int red = random.Next(random.Next(255));
@@ -63,7 +63,7 @@ namespace GBusManager
             return color;
         }
 
-        Color RandomColorHSV(double hue, double saturation, double value)
+        public static Color RandomColorHSV(double hue, double saturation, double value)
         {
 
             int hi = Convert.ToInt32(Math.Floor(hue / 60)) % 6;
