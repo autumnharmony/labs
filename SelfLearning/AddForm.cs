@@ -29,7 +29,6 @@ namespace SelfLearning
 		{
 			qq = textBox1.Text;
 			aa = textBox2.Text;
-			//MessageBox.Show(qq+" | "+aa);
 			Close();
 		}
 		

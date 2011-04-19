@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
-using System.Linq;
+//using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
 namespace SelfLearning
 {
-    public delegate void TreeViewEvent(object sender, EventArgs e);
+    //public delegate void TreeViewEvent(object sender, EventArgs e);
 
-    partial class TreeView : UserControl
+    public partial class TreeView : UserControl
     {
         BinaryTree tree;
 
@@ -74,9 +74,9 @@ namespace SelfLearning
 
         int dx = 0;
 
-        int deeplevel;
+        //int deeplevel;
 
-        bool needtoresize;
+        //bool needtoresize;
 
         public void Walk(Node node, int x, int y, int lev)
         {
@@ -104,6 +104,7 @@ namespace SelfLearning
                 l.Left += W1 / 2;
                 l.Top += H1 / 2;
 
+                /*
                 if (lev == deeplevel)
                 {
                     if (Math.Abs(l.Left - dx) < 2)
@@ -118,8 +119,10 @@ namespace SelfLearning
                 {
                     dx = l.Left + l.Width ;
                 }
+                 */ 
+                 
 
-                deeplevel = Math.Max(deeplevel, lev);
+                //deeplevel = Math.Max(deeplevel, lev);
 
                 l.TextAlign = ContentAlignment.MiddleCenter;
                 l.BorderStyle = BorderStyle.FixedSingle;
@@ -139,10 +142,10 @@ namespace SelfLearning
             if (tree != null)
             {
                 Controls.Clear();
-                if (needtoresize)
-                {
-                    Enlarge();
-                }
+                //if (needtoresize)
+                //{
+                //    Enlarge();
+                //}
                 Walk(tree.Root, 1, 1, 0);
             }
         }
@@ -166,7 +169,7 @@ namespace SelfLearning
             this.Width += 20;
             this.Height += 10;
             //Redraw();
-            needtoresize = false;
+            //needtoresize = false;
             //SizeChanged(this,new EventArgs());
         }
 

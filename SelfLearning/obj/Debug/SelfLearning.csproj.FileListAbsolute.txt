@@ -1,21 +1,11 @@
-F:\My Dropbox\SelfLearning\SelfLearning\obj\Debug\ResolveAssemblyReference.cache
-F:\My Dropbox\SelfLearning\SelfLearning\obj\Debug\SelfLearning.MainForm.resources
-F:\My Dropbox\SelfLearning\SelfLearning\obj\Debug\SelfLearning.Properties.Resources.resources
-F:\My Dropbox\SelfLearning\SelfLearning\obj\Debug\SelfLearning.QuestionBox.resources
-F:\My Dropbox\SelfLearning\SelfLearning\obj\Debug\SelfLearning.csproj.GenerateResource.Cache
+F:\My Dropbox\SelfLearning\SelfLearning\bin\Debug\SelfLearning.exe.config
 F:\My Dropbox\SelfLearning\SelfLearning\bin\Debug\SelfLearning.exe
 F:\My Dropbox\SelfLearning\SelfLearning\bin\Debug\SelfLearning.pdb
+F:\My Dropbox\SelfLearning\SelfLearning\obj\Debug\ResolveAssemblyReference.cache
+F:\My Dropbox\SelfLearning\SelfLearning\obj\Debug\SelfLearning.AddForm.resources
+F:\My Dropbox\SelfLearning\SelfLearning\obj\Debug\SelfLearning.MainForm.resources
+F:\My Dropbox\SelfLearning\SelfLearning\obj\Debug\SelfLearning.Properties.Resources.resources
+F:\My Dropbox\SelfLearning\SelfLearning\obj\Debug\SelfLearning.TreeView.resources
+F:\My Dropbox\SelfLearning\SelfLearning\obj\Debug\SelfLearning.csproj.GenerateResource.Cache
 F:\My Dropbox\SelfLearning\SelfLearning\obj\Debug\SelfLearning.exe
 F:\My Dropbox\SelfLearning\SelfLearning\obj\Debug\SelfLearning.pdb
-C:\Users\anton\Dropbox\SelfLearning\SelfLearning\bin\Debug\SelfLearning.exe
-C:\Users\anton\Dropbox\SelfLearning\SelfLearning\bin\Debug\SelfLearning.pdb
-C:\Users\anton\Dropbox\SelfLearning\SelfLearning\obj\Debug\ResolveAssemblyReference.cache
-C:\Users\anton\Dropbox\SelfLearning\SelfLearning\obj\Debug\SelfLearning.MainForm.resources
-C:\Users\anton\Dropbox\SelfLearning\SelfLearning\obj\Debug\SelfLearning.Properties.Resources.resources
-C:\Users\anton\Dropbox\SelfLearning\SelfLearning\obj\Debug\SelfLearning.QuestionBox.resources
-C:\Users\anton\Dropbox\SelfLearning\SelfLearning\obj\Debug\SelfLearning.csproj.GenerateResource.Cache
-C:\Users\anton\Dropbox\SelfLearning\SelfLearning\obj\Debug\SelfLearning.exe
-C:\Users\anton\Dropbox\SelfLearning\SelfLearning\obj\Debug\SelfLearning.pdb
-C:\Users\anton\Dropbox\SelfLearning\SelfLearning\obj\Debug\SelfLearning.AddForm.resources
-F:\My Dropbox\SelfLearning\SelfLearning\obj\Debug\SelfLearning.AddForm.resources
-F:\My Dropbox\SelfLearning\SelfLearning\obj\Debug\SelfLearning.TreeView.resources

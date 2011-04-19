@@ -1,11 +1,11 @@
 F:\My Dropbox\SelfLearning\SelfLearning\bin\Release\SelfLearning.exe
 F:\My Dropbox\SelfLearning\SelfLearning\bin\Release\SelfLearning.pdb
 F:\My Dropbox\SelfLearning\SelfLearning\obj\Release\ResolveAssemblyReference.cache
+F:\My Dropbox\SelfLearning\SelfLearning\obj\Release\SelfLearning.AddForm.resources
 F:\My Dropbox\SelfLearning\SelfLearning\obj\Release\SelfLearning.MainForm.resources
 F:\My Dropbox\SelfLearning\SelfLearning\obj\Release\SelfLearning.Properties.Resources.resources
-F:\My Dropbox\SelfLearning\SelfLearning\obj\Release\SelfLearning.QuestionBox.resources
+F:\My Dropbox\SelfLearning\SelfLearning\obj\Release\SelfLearning.TreeView.resources
 F:\My Dropbox\SelfLearning\SelfLearning\obj\Release\SelfLearning.csproj.GenerateResource.Cache
 F:\My Dropbox\SelfLearning\SelfLearning\obj\Release\SelfLearning.exe
 F:\My Dropbox\SelfLearning\SelfLearning\obj\Release\SelfLearning.pdb
-F:\My Dropbox\SelfLearning\SelfLearning\obj\Release\SelfLearning.AddForm.resources
-F:\My Dropbox\SelfLearning\SelfLearning\obj\Release\SelfLearning.TreeView.resources
+F:\My Dropbox\SelfLearning\SelfLearning\bin\Release\SelfLearning.exe.config

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -15,6 +14,7 @@ namespace SelfLearning
 
         public MainForm()
         {
+            /*
             
             Node n1 = null, 
                  n2 = null, 
@@ -39,15 +39,22 @@ namespace SelfLearning
             n5.Parent = n7;
             n6.Parent = n7;
             bt = new BinaryTree(n7);
-            InitializeComponent();
+            
             label1.DataBindings.Add(new Binding("Text", bt, "Status"));
             //label1.DataBindings.
+             */
+#if DEBUG
+            bt = null;
+#endif
+            bt = SaveLoad.Load();
+            InitializeComponent();
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //treeView1.NeedToEnlarge += new TreeViewEvent(treeView1_NeedToEnlarge);
-            //Node j = new Node
+            
+            Next();
         }
 
         void treeView1_NeedToEnlarge(object sender, EventArgs e)
@@ -55,18 +62,22 @@ namespace SelfLearning
             MessageBox.Show("Нужно увеличить размер treeview");
         }
 
-        private void questionBox1_Load(object sender, EventArgs e)
-        {
-            questionBox1.btree = bt;
-            questionBox1.Next();
-        }
+   
 
         private void treeView1_Load(object sender, EventArgs e)
         {
-            treeView1.Tree = bt;
-            treeView1.Walk(bt.Root, 1, 1,0);
-            bt.TreeChanged += new TreeEvent(bt_TreeChanged);
-            //treeView1
+            try
+            {
+                treeView1.Tree = bt;
+                bt.TV = treeView1;
+                treeView1.Walk(bt.Root, 1, 1, 0);
+                //bt.TreeChanged += new TreeEvent(bt_TreeChanged);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            
         }
 
         void bt_TreeChanged(object sender, EventArgs e)
@@ -90,6 +101,48 @@ namespace SelfLearning
         {
 
             bt.Up();
+
+        }
+
+       
+
+        private void noBtn_Click(object sender, EventArgs e)
+        {
+            bt.No();
+            Next();
+        }
+
+        private void yesBtn_Click(object sender, EventArgs e)
+        {
+            bt.Yes();
+            Next();
+        }
+
+        public void Next()
+        {
+            if (bt.Completed)
+            {
+                MessageBox.Show("Completed");
+               
+            }
+            else
+                questionLbl.Text = bt.Q;
+        }
+
+        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveLoad.Save(bt);
+        }
+
+        private void загрузитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            bt = SaveLoad.Load();
+            treeView1.Redraw();
+
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
 
         }
 

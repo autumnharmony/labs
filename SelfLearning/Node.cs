@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace SelfLearning
 {
+    [Serializable]
     public class Node
     {
         public enum NodeType
@@ -41,7 +41,8 @@ namespace SelfLearning
 
         public string Question
         {
-            get { if (isLeaf) return question + "!"; else return question + "?"; }
+            //get { if (isLeaf) return question + "!"; else return question + "?"; }
+            get { if (isLeaf) return question; else return question; }
             set { question = value; }
         }
         

@@ -1,19 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+
 
 namespace SelfLearning
 {
 
-    public delegate void TreeEvent(object sender, EventArgs e);
+    //public delegate void TreeEvent(object sender, EventArgs e);
 
+    [Serializable]
     public class BinaryTree
     {     
         Node root;
         Node current;
         Node prev;
+
+        TreeView tv;
+
+        public TreeView TV
+        {
+            get
+            {
+                return tv;
+            }
+            set
+            {
+                tv = value;
+            }
+        }
 
         public Node Root
         {
@@ -27,8 +42,9 @@ namespace SelfLearning
             }
             set
             {
-                TreeChanged(this, new EventArgs());
+                
                 if (value != null) { current = value; }
+                tv.Redraw();
                 
             }
         }
@@ -38,9 +54,9 @@ namespace SelfLearning
                 return prev;
             }
             set {
-                TreeChanged(this,new EventArgs());
+                
                 prev = value;
-             
+                tv.Redraw();
             }
         }
 
@@ -58,27 +74,28 @@ namespace SelfLearning
             current = r;
         }
 
-        public void Add(Node n, string q,string a,bool left){
+        public void AddQA(Node n, string q,string a,bool left){
+
             Console.WriteLine(left);
-            Node nn = new Node(q);
-            nn.Right = n;
-
-            Node an = new Node(a);
-            an.Parent = nn;
-            nn.Left = an;
-            nn.Parent = n.Parent;
+            Node qn = new Node(q);
             
-            if (left) 
-                n.Parent.Left = nn; 
-            else 
-                n.Parent.Right = nn;
-            n.Parent = nn;
-            TreeChanged(this,new EventArgs());
-            //prev = nn;
-            //current = an;
-            //return nn.Left;
+
+                qn.Parent = n.Parent;
+                qn.Right = n;
+                Node an = new Node(a);
+                an.Parent = qn;
+                qn.Left = an;
+
+                if (left)
+                    n.Parent.Left = qn;
+                else
+                    n.Parent.Right = qn;
+                n.Parent = qn;
 
             
+            
+
+            tv.Redraw();
         }
 
         public void Yes()
@@ -94,7 +111,8 @@ namespace SelfLearning
                 Prev = Current;
                 Current = Current.Left;
             }
-            TreeChanged(this,new EventArgs());
+            //TreeChanged(this,new EventArgs());
+            tv.Redraw();
         }
 
         public void No()
@@ -107,9 +125,9 @@ namespace SelfLearning
                 if (af.DialogResult == DialogResult.OK)
                 {
 
-                    Add(Current, af.qq, af.aa, laststep);
+                    AddQA(Current, af.qq, af.aa, laststep);
                     Current = Root;
-                    OnTreeChanged(new EventArgs());
+                    
                 }
             } else if (!Completed) {
 
@@ -120,7 +138,8 @@ namespace SelfLearning
                 laststep = false;
             }
             
-            TreeChanged(this,new EventArgs());
+            //TreeChanged(this,new EventArgs());
+            tv.Redraw();
         }
 
         public string Q
@@ -134,18 +153,16 @@ namespace SelfLearning
         }
 
 
-        public event TreeEvent TreeChanged;
+        //public event TreeEvent TreeChanged;
 
-        protected virtual void OnTreeChanged(EventArgs e)
-        {
-            TreeChanged(this, e);  
-        }
+ 
 
         public void Anew()
         {
             Current = Root;
             Prev = null;
             //TreeChanged(this, new EventArgs());
+            tv.Redraw();
         }
 
         public void Redraw()
@@ -155,9 +172,13 @@ namespace SelfLearning
 
         public void Up()
         {
-            Prev = Prev.Parent;
-            Current = Current.Parent;
-            TreeChanged(this, new EventArgs());
+            if (Prev != null && Prev.Parent != null)
+            {
+                Prev = Prev.Parent;
+                Current = Current.Parent;
+                //TreeChanged(this, new EventArgs());
+                tv.Redraw();
+            }
             
         }
     }
