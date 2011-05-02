@@ -14,6 +14,9 @@ namespace SelfLearning
 
         public MainForm()
         {
+
+            
+            
             /*
             
             Node n1 = null, 

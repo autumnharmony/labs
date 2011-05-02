@@ -9,6 +9,7 @@ namespace SelfLearning
     // Сохранение и загрузка данных дерева вопросов
     static class SaveLoad
     {
+       
 
         public enum ChildFlags
         {
@@ -18,9 +19,12 @@ namespace SelfLearning
             LeftRight = 0x3
         }
 
+        static int cfn;
+
         static Node parent;
 
         static Stack<Node> stack = new Stack<Node>();
+        static MyStack<Node> myStack = new MyStack<Node>();
 
         public static void Save(BinaryTree tree)
         {
@@ -52,12 +56,23 @@ namespace SelfLearning
             if (node != null)
             {
                 ChildFlags cf = ChildFlags.None;
-                if (node.Left != null) cf = cf | ChildFlags.Left;
+                if (node.Left != null) { cf = cf | ChildFlags.Left; }
+
+                //if (node.Left != null) cfn = 1;
+
+
                 if (node.Right != null) cf = cf | ChildFlags.Right;
+
+                //if (node.Right != null) cfn = 2;
+
+                //if (node.Right != null && node.Left !=null) cfn = 3;
+
+
 
                 
                 s += node.Question + "\n";
                 s +=(int)cf + "\n";
+                //s += cfn + "\n";
 
                 Console.WriteLine(node.Question);
                 Console.WriteLine(cf);
@@ -88,6 +103,12 @@ namespace SelfLearning
                 Node r = Parse( ref all);
 
                 bt = new BinaryTree(r);
+
+                Console.WriteLine("Tree Info:");
+                string s = "";
+                bt.Info(bt.Root,ref s);
+                Console.WriteLine(s);
+
 
             }
 
@@ -139,53 +160,79 @@ namespace SelfLearning
         static Node Parse(ref string all)
         {
             Node qn = null;
-            Console.WriteLine("|" + all + "|");
+            //Console.WriteLine(("|" + all + "|"));
             if (all != "")
             {
-                //Console.WriteLine(all);
 
-                string s;
                 string q, cs;
+
+                // q - question
+                // cs - child string
 
 
                 q = all.Split('\n')[0];
 
                 qn = new Node(q);
-                
 
+                if (myStack.Count == 0)
+                {
+                    qn.Parent = null;
+                }
+                else 
+                qn.Parent = myStack.Pop();
+
+                Console.WriteLine(q);
                 cs = all.Split('\n')[1];
+
 
                 all = all.Replace(q, "");
                 all = all.Substring(1,all.Length-1);
                 all = all.Substring(1,all.Length-1);
+
                 all = all.Substring(1, all.Length-1);
 
 
                 ChildFlags cf = (ChildFlags)int.Parse(cs);
-                Console.WriteLine(cf);
+                Console.WriteLine("\tcf = {0}",cf);
                 //qn.Parent = parent;
                 if ((cf & ChildFlags.Left) == ChildFlags.Left)
                 {
-                    Console.Write("Left:");
+                    //stack.Push(qn);
+                    myStack.Push(qn);
+                    
                     qn.Left = Parse(ref all);
-                    qn.Parent = stack.Peek();
+                    Console.WriteLine("\tLeft {0}",qn.Left);
+                    //Node t = myStack.Pop();
+                    //qn.Parent = myStack.Pop();
+                    //myStack.Push(t);
+                    //stack.Pop();
+                    //Console.WriteLine("\tParent {0}",qn.Parent);
                 }
                 
                 
                 if ((cf & ChildFlags.Right) == ChildFlags.Right)
                 {
-                    Console.Write("Right:");
+                    //stack.Push(qn);
+                    myStack.Push(qn);
+
                     qn.Right = Parse(ref all);
-                    qn.Parent = stack.Peek();
+
+                    Console.Write("\tRight {0}", qn.Right);
+
+                    //Node t = myStack.Pop();
+                    //qn.Parent = myStack.Pop();
+                    //myStack.Push(t);
+                    //stack.Pop();
+                    //Console.Write("\tParent {0}", qn.Parent);
                 }
 
-                if ((cf & ChildFlags.Right) == ChildFlags.None)
+                if ((cf) == ChildFlags.None)
                 {
-                    if (stack.Count!=0) stack.Pop();
+                    //if (myStack.Count!=0) myStack.Pop();
                 }
 
 
-                stack.Push(qn);
+                
                 
                 
             }

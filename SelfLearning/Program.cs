@@ -14,7 +14,17 @@ namespace SelfLearning
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            //m
             Application.Run(new MainForm());
+            //th
+        }
+
+        static string s = "";
+
+        //MainForm mf;
+
+        public static void Message(string s1){
+            s = s1;
         }
     }
 }

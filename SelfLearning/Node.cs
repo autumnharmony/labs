@@ -24,19 +24,28 @@ namespace SelfLearning
         public Node Left
         {
             get { return left; }
-            set { left = value; }
+            set {
+                Console.WriteLine("Node {0} Left set to {1}", Question, value);
+                left = value; 
+            }
         }
 
         public Node Right
         {
             get { return right; }
-            set { right = value; }
+            set {
+                Console.WriteLine("Node {0} Right set to {1}", Question, value);
+                right = value; 
+            }
         }
 
         public Node Parent
         {
             get { return parent; }
-            set { parent = value; }
+            set {
+                Console.WriteLine("Node {0} Parent set to {1}", Question, value);
+                parent = value; 
+            }
         }
 
         public string Question

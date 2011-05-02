@@ -181,5 +181,23 @@ namespace SelfLearning
             }
             
         }
+
+        public void Info(Node n,ref string s)
+        {
+            if (n.Left != null)
+            {
+                Info(n.Left, ref s);
+            }
+            if (n.Right != null)
+            {
+                Info(n.Right, ref s);
+            }
+
+            s = "\n" + n.Question + s;
+            s = String.Format("\n Parent{0}", n.Parent)+s;
+            s = String.Format("\n Left:{0} Right:{1}", n.Left, n.Right)+s;
+
+
+        }
     }
 }
