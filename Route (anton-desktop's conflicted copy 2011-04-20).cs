@@ -15,10 +15,9 @@ namespace GBusManager
         public string rs;
 		public int[] nodes;
 
-        // статический счетчик экземпляров
-        static int count; 
-
         public int n;
+
+        bool deleted;
 
         public Color color;
         
@@ -29,46 +28,30 @@ namespace GBusManager
 		}
 		public Route(string s)
 		{
-            n = count;
-            count++;
-            rs = s;
-            Random rndm = new Random();
-            color = Color.FromArgb(rndm.Next(255), rndm.Next(255), rndm.Next(255));
-
-			string[] ns = s.Split();
-			nodes = new int[ns.Length];
-
-            //if (ns.Length < 2) { throw new Exception("Route must have at least 2 nodes length"); }
-			for (int i = 0; i< ns.Length; i++){
-				nodes[i] = int.Parse(ns[i]);
-			}
-		}
-		
-		public Route(int[] nn){
-			nodes = nn;
-		}
-
-        public override string ToString()
-        {
-            return ""+n+"." + "[" + rs + "]";
-        }
-
-        public int Near(int n, int d)
-        {
-            int i = 0;// = rs.IndexOf(n.ToString());
-            try
+            if (s.Length > 0)
             {
-                for (i = 0; i < nodes.Length && nodes[i] != n; i++)
-                    ;
-                //ArrayList a;
-                //a.AddRange();
-           
-                //if (i+d) 
-                return nodes[i + d];
+                rs = s;
+                Random rndm = new Random();
+                //color = RandomColor();
+                color = RandomColorHSV(rndm.Next(), 0.5, 0.95);
+                Console.WriteLine("RandomColor {0}", color.ToString());
+                //color = Color.
+
+                string[] ns = s.Split();
+                nodes = new int[ns.Length];
+
+                //if (ns.Length < 2) { throw new Exception("Route must have at least 2 nodes length"); }
+                for (int i = 0; i < ns.Length; i++)
+                {
+                    nodes[i] = int.Parse(ns[i]);
+                }
             }
-            catch { return nodes[i - d]; } 
-        }
-        
+            else {
+                Console.WriteLine("Empty route");
+                throw new Exception("Empty route");
+            }
+		}
+
         public static Color RandomColor()
         {
             Random random = new Random();
@@ -105,10 +88,50 @@ namespace GBusManager
                 return Color.FromArgb(255, t, p, v);
             else
                 return Color.FromArgb(255, v, p, q);
+            
+            
 
+             
+        }
+		
+		public Route(int[] nn){
+			nodes = nn;
+		}
 
+        public override string ToString()
+        {
+            string s = "";
+            foreach(int num in nodes){
+                s += num.ToString() + " ";
+            }
+            return ""+n+"." + "[" + s + "]";
 
+        }
 
+        public int Near(int n, int d)
+        {
+            int i = 0;// = rs.IndexOf(n.ToString());
+            try
+            {
+                for (i = 0; i < nodes.Length && nodes[i] != n; i++)
+                    ;
+                //ArrayList a;
+                //a.AddRange();
+           
+                //if (i+d) 
+                return nodes[i + d];
+            }
+            catch { return nodes[i - d]; } 
+        }
+
+        public bool Contains(int n)
+        {
+            return rs.Contains(n.ToString());
+        }
+
+        public void DeleteFromRoute(int n)
+        {
+            rs = rs.Replace(n + " ", "");
         }
 
 	}

@@ -10,6 +10,9 @@ namespace GBusManager
     [Serializable()]
     public class Point
     {
+        /// <summary>
+        /// Номер точки
+        /// </summary>
         public int N
         {
             get { return n; }
@@ -19,6 +22,14 @@ namespace GBusManager
         int x, y;
         int n;
         public bool selected;
+
+        Node node;
+
+        public Node Node{
+            get { return node; }
+            set { node = value; }
+        }
+
         int size;
         Color color;
 
@@ -103,7 +114,7 @@ namespace GBusManager
         public override string ToString()
         {
             //return "" + N.ToString() ;
-            return String.Format("{0} ({1},{2})",N, X, Y);
+            return String.Format("{0}",N);
         }
 
         

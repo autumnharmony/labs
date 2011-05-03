@@ -1,6 +1,6 @@
 ﻿namespace GBusManager
 {
-    partial class GraphViewer
+    partial class GraphControl
     {
         /// <summary> 
         /// Требуется переменная конструктора.
@@ -30,21 +30,20 @@
         {
             this.SuspendLayout();
             // 
-            // GraphViewer
+            // GraphControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.BackColor = System.Drawing.Color.White;
-            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Name = "GraphViewer";
-            this.Size = new System.Drawing.Size(1096, 550);
-            this.Load += new System.EventHandler(this.GraphView_Load);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.GraphViewer_MouseMove);
-            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.GraphView_MouseClick);
-            this.MouseHover += new System.EventHandler(this.GraphViewer_MouseHover);
+            this.Name = "GraphControl";
+            this.Load += new System.EventHandler(this.GraphControl_Load);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.GraphControl_MouseClick);
             this.ResumeLayout(false);
 
+        }
+
+        void GraphControl_Load(object sender, System.EventArgs e)
+        {
+            throw new System.NotImplementedException();
         }
 
         #endregion

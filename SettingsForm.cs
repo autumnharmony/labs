@@ -24,7 +24,7 @@ namespace GBusManager
             //graphCreator1.DrawPoint(new Point(graphCreator1.Width/2,graphCreator1.Height/2,pointSizeTrackBar.Value,Color.Black));
             Settings1.Default.NodeSize = pointSizeTrackBar.Value;
             //Settings1.Default.BetweenEdgesK = 
-            graphCreator1.Redraw(true);
+            //graphCreator1.Redraw(true);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -60,8 +60,8 @@ namespace GBusManager
                 Graph g = new Graph(new System.Collections.ArrayList() { p1, p2 }, new Route[] { r1, r2, r3 });
 
                 //graphCreator1 = new GraphViewer(g) as GraphCreator;
-                graphCreator1.points.Add(p1);
-                graphCreator1.points.Add(p2);
+                //graphCreator1.points.Add(p1);
+                //graphCreator1.points.Add(p2);
 
                 /*graphCreator1.edges.Add(new Edge(p1, p2, 0, 0));
                 graphCreator1.edges.Add(new Edge(p1, p2, 1, 1));
@@ -70,8 +70,8 @@ namespace GBusManager
                 
 
                 //graphCreator1.r
-                graphCreator1.Redraw(true);
-                graphCreator1.DrawRoutes(new Route[] { r1, r2, r3 });
+                //graphCreator1.Redraw(true);
+                //graphCreator1.DrawRoutes(new Route[] { r1, r2, r3 });
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }
         }
@@ -90,6 +90,11 @@ namespace GBusManager
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
             Settings1.Default.AdditionalEdgeEllipsis = false;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

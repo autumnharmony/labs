@@ -5,6 +5,7 @@ using System.Text;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Collections;
 
 namespace GBusManager
 {
@@ -13,7 +14,13 @@ namespace GBusManager
         static Stream stream; //= File.Open("EmployeeInfo.osl", FileMode.Create);
         static BinaryFormatter bformatter; // = new BinaryFormatter();
 
+        public static ArrayList Points,Routes,Edges;
+
+        
+
         //Stream stream = File.Open("EmployeeInfo.osl", FileMode.Create);
+
+
 
         public static void Save(){
             stream = File.Open("Points.bin", FileMode.Create);
@@ -35,36 +42,74 @@ namespace GBusManager
 
         public static void Load()
         {
-            stream = File.Open("Points.bin", FileMode.Open);
-            bformatter = new BinaryFormatter();
 
-            Console.WriteLine("Reading Points Information: Begins");
-            Status.Points = (System.Collections.ArrayList)bformatter.Deserialize(stream);
-            Console.WriteLine("Reading Points Information: Completed");
-            stream.Close();
+            try
+            {
 
-            //Status.graphcreator.points = Status.Points;
-
-            stream = File.Open("Routes.bin", FileMode.Open);
-            Console.WriteLine("Reading Routes Information: Begins");
-            Status.Routes = (System.Collections.ArrayList)bformatter.Deserialize(stream);
-            Console.WriteLine("Reading Routes Information: Completed");
-            stream.Close();
-
-            stream = File.Open("Edges.bin", FileMode.Open);
-            Console.WriteLine("Reading Edges Information: Begins");
-            //Status.graphcreator.edges = (System.Collections.ArrayList)bformatter.Deserialize(stream);
-            //Status.Edges = Status.graphcreator.edges; //(System.Collections.ArrayList)bformatter.Deserialize(stream);
-            Console.WriteLine("Reading Edges Information: Completed");
-            stream.Close();
+                FileInfo info;
 
 
+                info = new FileInfo("Points.bin");
 
-            //Status.tp.routes = Status.Routes;
-            //Status.tp.RefreshRoutesAndPoints();
-            //Status.graphcreator.Redraw(true);
-            //Status.graphcreator.DrawRoutes(Status.Routes.ToArray(typeof(Route)) as Route[]);
-            
+                if (info.Exists && info.Length != 0)
+                {
+
+
+                    stream = File.Open("Points.bin", FileMode.Open);
+                    bformatter = new BinaryFormatter();
+
+                    Console.WriteLine("Reading Points Information: Begins");
+                    Points = (ArrayList)bformatter.Deserialize(stream);
+                    Status.Points = Points;
+                    Console.WriteLine("Reading Points Information: Completed");
+                    stream.Close();
+                }
+
+                else
+                {
+                    Status.Points = new ArrayList();
+                }
+
+                //Status.graphcreator.points = Status.Points;
+
+                info = new FileInfo("Routes.bin");
+
+                if (info.Exists && info.Length != 0)
+                {
+
+                    stream = File.Open("Routes.bin", FileMode.Open);
+                    Console.WriteLine("Reading Routes Information: Begins");
+                    Routes = (System.Collections.ArrayList)bformatter.Deserialize(stream);
+                    Status.Routes = Routes;
+                    Console.WriteLine("Reading Routes Information: Completed");
+                    stream.Close();
+                }
+
+                else
+                {
+                    Status.Routes = new ArrayList();
+                }
+
+                /*
+
+                stream = File.Open("Edges.bin", FileMode.Open);
+                Console.WriteLine("Reading Edges Information: Begins");
+                Edges = (System.Collections.ArrayList)bformatter.Deserialize(stream);
+                //Edges = Status.graphcreator.edges; //(System.Collections.ArrayList)bformatter.Deserialize(stream);
+                Console.WriteLine("Reading Edges Information: Completed");
+                stream.Close();
+                */
+
+
+                //Status.tp.routes = Status.Routes;
+                //Status.tp.RefreshRoutesAndPoints();
+                //Status.graphcreator.Redraw(true);
+                //Status.graphcreator.DrawRoutes(Status.Routes.ToArray(typeof(Route)) as Route[]);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message + "\n"+ e.StackTrace );
+            }
         }
             
 

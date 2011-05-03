@@ -35,7 +35,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Name = "GraphCreator";
-            this.Size = new System.Drawing.Size(331, 238);
+            this.Size = new System.Drawing.Size(411, 196);
             this.Load += new System.EventHandler(this.GraphCreator_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.GraphCreator_Paint);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.GraphCreator_MouseMove);
@@ -46,6 +46,7 @@
         }
 
         #endregion
+
 
 
     }

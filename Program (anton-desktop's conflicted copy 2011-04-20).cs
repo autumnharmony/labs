@@ -17,15 +17,18 @@ namespace GBusManager
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-            
-            //SaveLoad.Load();
-            
+            Console.WriteLine("Trying to load previous session data");
+            try
+            {
+                SaveLoad.Load();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Loading failed, reason: " + e.Message+" "+e.StackTrace);
+            }
 
-			Application.Run(new Start());
-
-            if (!Status.newset) { SaveLoad.Load(); }
-            Application.Run(new MainForm());
-            
+			Application.Run(new MainForm());
+			//Application.Run(new ColorTest());
 		}
 		
 	}

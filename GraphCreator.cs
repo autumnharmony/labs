@@ -16,23 +16,19 @@ namespace GBusManager
 
     public partial class GraphCreator :  GraphViewer
     {
+        #region vars
         int c;
-
         bool drawLine;
-
+        bool movePoint;
         int x1, y1;
         public string crs = "";
         int lpn = -1;
         Point s,f;
 
-        ToolsPanel tp;
-
 
         bool newPointBlock; // не позволяет добавлять новые точки, пока не подтверждено добавление предыдущей
 
-        GState prevstate;
-
-        //ArrayL
+        #endregion
 
         public ArrayList tempedges = new ArrayList();
 
@@ -42,14 +38,24 @@ namespace GBusManager
 
         public GraphCreator()
         {
-            //points = new System.Collections.ArrayList();
             points = Status.Points;
-            //edges = Status.
+
             this.g = this.CreateGraphics();
+
+            c = Status.Points.Count;
+            //activeroutes = SaveLoad.Routes;
+
+                
             InitializeComponent();
 
-            Status.myPoints.PointAdded += new PointAddedHandler(myPoints_PointAdded);
-            Status.myPoints.PointDeleted += new PointAddedHandler(myPoints_PointDeleted);
+            Status.myPoints.PointAdded += new PointHandler(myPoints_PointAdded);
+            Status.myPoints.PointDeleted += new PointHandler(myPoints_PointDeleted);
+            Status.myRoutes.RouteAdded += new RouteHandler(myRoutes_RouteAdded);
+        }
+
+        void myRoutes_RouteAdded(object sender, RoutesEventArgs e)
+        {
+            Console.WriteLine("GraphCreator должен нарисовать новый маршрут {0}", e.route);
         }
 
         void myPoints_PointDeleted(object sender, PointsEventArgs e)
@@ -77,7 +83,6 @@ namespace GBusManager
 
         private void GraphCreator_Load(object sender, EventArgs e)
         {
-
         }
 
         public override void GraphView_MouseClick(object sender, MouseEventArgs e)
@@ -96,7 +101,7 @@ namespace GBusManager
                     tb.Left = e.X;
                     tb.Top = e.Y - tb.Height;
                     tb.Width = 20;
-                    tb.Text = c.ToString();
+                    tb.Text = Status.Points.Count.ToString();
                     Button addBtn = new Button();
 
                     addBtn.Left = e.X + tb.Width;
@@ -148,14 +153,18 @@ namespace GBusManager
                 #endregion
             }
         }
-
-        
-
         private void GraphCreator_MouseMove(object sender, MouseEventArgs e)
         {
+            if (movePoint)
+            {
+                selectedPoint.X = e.X;
+                selectedPoint.Y = e.Y;
+                Console.WriteLine(selectedPoint);
+                //OnPaint(new PaintEventArgs(this.CreateGraphics(),new Rectangle(this.Left,this.Top, this.Width, this.Height)));
+                Invalidate();
+            }
 
         }
-
         private void GraphCreator_MouseUp(object sender, MouseEventArgs e)
         {
 
@@ -180,12 +189,13 @@ namespace GBusManager
 				}
                 
 			}
+
+            if (movePoint) {
+                movePoint = false;
+                Console.WriteLine("movePoint false");
+            }
             
 		}
-
-         
-        
-
         private void GraphCreator_MouseDown(object sender, MouseEventArgs e)
         {
 
@@ -209,6 +219,20 @@ namespace GBusManager
                 }
             }
 
+            if (Status.mode == Misc.Mode.Select)
+            {
+
+                Point p = FindNear(e.X, e.Y, 10);
+                selectedPoint = p;
+                if (selectedPoint != null)
+                {
+                    movePoint = true;
+                    Console.WriteLine("movePoint true");
+                    //MouseMove+=//OnPaint(new PaintEventArgs(this.CreateGraphics(),new Rectangle(this.Left,this.Top, this.Width, this.Height)));
+                }
+
+            }
+
         }
 
         private void GraphCreator_Paint(object sender, PaintEventArgs e)
@@ -230,7 +254,7 @@ namespace GBusManager
                             Console.WriteLine("NodesAndRoutes");
                             DrawNodes(true);
                             edges.Clear();
-                            DrawRoutes((Route[])Status.graphcreator.activeroutes.ToArray(typeof(Route)));
+                            DrawRoutes((Route[])activeroutes.ToArray(typeof(Route)));
                         }
                         catch (Exception ex)
                         {
@@ -241,6 +265,7 @@ namespace GBusManager
                 case GState.RouteDraw:
                     {
                         Console.WriteLine("RouteDraw");
+                        
                         DrawNodes(true);
                         DrawTempEdges(tempedges);
                         break;
@@ -254,6 +279,12 @@ namespace GBusManager
                         }
                         break;
 
+                    }
+                case GState.SelectPoints:
+                    {
+                        DrawNodes(true);
+                        //SelectPoint
+                        break;
                     }
             }
 
@@ -271,7 +302,8 @@ namespace GBusManager
          OnlyNodes,
          NodesAndRoutes,
          RouteDraw,
-         ResultPath
+         ResultPath,
+         SelectPoints
         }
 
         public GState state = GState.NodesAndRoutes;
@@ -296,6 +328,7 @@ namespace GBusManager
         }
           */
      
+
 
        
     }

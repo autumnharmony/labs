@@ -48,38 +48,30 @@ namespace GBusManager
 		
 		public MainForm()
 		{
-			//
-			// The InitializeComponent() call is required for Windows Forms designer support.
-			//
-
-            Status.Routes = rs;
-            Status.Points = points;
+		    //Status.Routes = rs;
+            //Status.Points = points;
 
 			InitializeComponent();
-            this.Resize += new EventHandler(MainForm_Resize);
-			//g = panel1.CreateGraphics();
+
 			ArrayList pal = new ArrayList();
             points.Capacity = 30;
+            
             Status.tp = toolsPanel2;
             Status.graphcreator = graphCreator1;
             Status.crs = crs;
-            //label1.DataBindings.Add(new Binding("Text",graphCreator1, "crs"));
-			//
-			// TODO: Add constructor code after the InitializeComponent() call.
-			//
+            //graphCreator1.Enabled = false;
+            
+		
 		}
 
-        void MainForm_Resize(object sender, EventArgs e)
-        {
-            Invalidate();
-        }
+        
 		
 		void MainFormLoad(object sender, EventArgs e)
 		{
             toolsPanel2.graphcreator = graphCreator1;
             Settings1 set = new Settings1();
             //set.AdditionalEdgeEllipsis 
-            graphCreator1.DrawPoint(new Point(100, 100, 1));
+            //graphCreator1.DrawPoint(new Point(100, 100, 1));
             graphCreator1.MyEvent += new MyEventHandler(graphCreator1_MyEvent);
 		}
 
@@ -88,21 +80,6 @@ namespace GBusManager
             label1.Text = String.Format("{0},{1}", e.X, e.Y);
         }
 		
-		void Button1Click(object sender, EventArgs e)
-		{
-			mode = Misc.Mode.Point;
-		}
-		
-		void Button2Click(object sender, EventArgs e)
-		{
-			mode = Misc.Mode.Line;
-		}
-		
-		
-		
-		
-		
-
 		
 		void Button4Click(object sender, EventArgs e)
 		{
@@ -110,16 +87,11 @@ namespace GBusManager
 			crs = "";
 			
 		}
-		
-		void Panel1Paint(object sender, PaintEventArgs e)
-		{
-			
-		}
+
 		
 		void Button5Click(object sender, EventArgs e)
 		{
 			g.Clear(Color.White);
-			//DrawAll(points,new ArrayList(),panel1);
 		}
 
         private void graphViewer1_Load(object sender, EventArgs e)
@@ -132,11 +104,6 @@ namespace GBusManager
             Status.ElEd = ((CheckBox)sender).Checked;
         }
 
-        private void MainForm_Activated(object sender, EventArgs e)
-        {
-            //graphCreator1.Redraw(true);
-            this.Refresh();
-        }
 
         private void graphCreator1_Scroll(object sender, ScrollEventArgs e)
         {
@@ -187,8 +154,17 @@ namespace GBusManager
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveLoad.Load();
-            graphCreator1.Redraw(true);
+            //graphCreator1 = new GraphCreator();
+            //graphCreator1.Invalidate();
+            //graphCreator1;
             toolsPanel2.RefreshRoutesAndPoints();
+
+            //Controls.Remove(graphCreator1);
+            //graphCreator1 = new GraphCreator();
+            //Controls.Add(graphCreator1);
+            graphCreator1.points = Status.Points;
+            Status.tp.routes = Status.Routes;
+            //graphCreator1.Redraw(true);
         }
 
         private void toolsPanel2_Load(object sender, EventArgs e)
@@ -200,6 +176,33 @@ namespace GBusManager
         {
             Console.WriteLine("Need to save data");
             SaveLoad.Save();
+        }
+
+        private void toolStripStatusLabel2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void очиститьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Status.Routes.Clear();
+            Status.Points.Clear();
+        }
+
+        private void новыйToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Status.Routes = new ArrayList();
+            Status.Points = new ArrayList();
+            graphCreator1.Enabled = true;
+            
+            graphCreator1.points = Status.Points;
+            graphCreator1.Show();
+            //graphCreator1
         }
 
            

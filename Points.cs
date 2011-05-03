@@ -19,11 +19,11 @@ namespace GBusManager
      
  }
 
- public delegate void PointAddedHandler(object sender, PointsEventArgs e);
+ public delegate void PointHandler(object sender, PointsEventArgs e);
  
 
     /// <summary>
-    /// Контейнер для точек с операциями доступа 
+    /// Контейнер для точек с операциями доступа и событиями
     /// </summary>
     /// TODO
     class Points:ICollection<Point>,IList<Point>
@@ -31,8 +31,8 @@ namespace GBusManager
 
         
 
-       public event PointAddedHandler PointAdded;
-       public event PointAddedHandler PointDeleted;
+       public event PointHandler PointAdded;
+       public event PointHandler PointDeleted;
 
        protected virtual void OnPointAdded(PointsEventArgs e)
        {

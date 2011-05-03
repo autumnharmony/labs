@@ -11,7 +11,7 @@ namespace GBusManager
     static class Status
     {
        
-
+        public static bool newset;
         public static Misc.Mode mode = Misc.Mode.Point;
 
         public static int x1;
@@ -19,7 +19,7 @@ namespace GBusManager
 
         public static Point s;
 
-        public static ArrayList Routes;
+        public static ArrayList Routes = new ArrayList();
 
         public static ArrayList Points = new ArrayList();
 
@@ -40,6 +40,6 @@ namespace GBusManager
 
         public static Points myPoints = new Points(10);
 
-        public static Routes myRoutes;
+        public static Routes myRoutes = new Routes(10);
     }
 }

@@ -87,8 +87,16 @@ namespace GBusManager
                 lbl.Top = y + lbl.Height / 2;
                 lbl.Left = x + lbl.Width / 2;
                 Controls.Add(lbl);
-                 */ 
-                g.DrawString(n.ToString(), new Font("Arial", 10), new SolidBrush(Color.Black), new PointF(x, y));
+                 */
+                if (point.Node != null)
+                {
+                    g.DrawString(point.Node.ToString(), new Font("Arial", 8), new SolidBrush(Color.Black), new PointF(x, y));
+                }
+
+                else
+                {
+                    g.DrawString(n.ToString(), new Font("Arial", 8), new SolidBrush(Color.Black), new PointF(x, y));
+                }
 
             }
 
