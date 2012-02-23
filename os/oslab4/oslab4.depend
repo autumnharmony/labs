@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1330019163 source:/home/anton/os/oslab4/deque.cpp
+	"deque.h"
+
+1330009360 /home/anton/os/oslab4/deque.h
+	<stdlib.h>
+	<cstdio>
+	<cstring>
+
+1330019105 source:/home/anton/os/oslab4/main.cpp
+	<iostream>
+	"deque.h"
+
